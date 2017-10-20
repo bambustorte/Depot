@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Depot</string>
+    <string name="text_Add">Hinzufügen</string>
+    <string name="text_ScanItem">Einscannen</string>
+    <string name="text_ShoppingList">Einkaufsliste</string>
+    <string name="text_WantedInventory">Gewünschter Lagerstand</string>
+    <string name="text_changelevel">Menge ändern</string>
+    <string name="text_delete">Löschen</string>
+    <string name="text_openinventory">Lagerbestand öffnen</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="navigation_drawer_close">Navigation schließen</string>
+    <string name="navigation_drawer_open">Navigation öffnen</string>
+    <string name="title_activity_main2">Depot</string>
+    <string name="text_overview">Übersicht</string>
+    <string name="text_select_menuentry">Bitte Menüpunkt wählen</string>
+</resources>

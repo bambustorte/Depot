@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Depot</string>
+    <string name="text_openinventory">Open inventory</string>
+    <string name="text_ScanItem">Scan item</string>
+    <string name="text_WantedInventory">Wanted inventory list</string>
+    <string name="text_ShoppingList">Shopping list</string>
+    <string name="text_delete">Delete</string>
+    <string name="text_changelevel">Change level</string>
+    <string name="text_Add">Add</string>
+    <string name="title_activity_main2">Depot</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="text_overview">Overview</string>
+    <string name="text_select_menuentry">Please select a menu entry</string>
+</resources>
