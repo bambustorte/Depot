@@ -1,21 +1,20 @@
 package se.ju.group8.depot;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * @author max
- * @date 10/20/17.
- */
+import se.ju.group8.depot.R;
 
-public class ContextFragment1 extends Fragment {
+public class ContextFragmentWantedItemsList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.test, container, false);
+//        System.out.println("test");
+        return inflater.inflate(R.layout.fragment_wanted_items_list, container, false);
     }
 }
+

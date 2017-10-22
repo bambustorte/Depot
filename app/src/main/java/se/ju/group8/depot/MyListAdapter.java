@@ -68,13 +68,14 @@ public class MyListAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(aContext);
-            convertView = inflater.inflate(R.layout.item, parent, false);
-        }
-        TextView textView = (TextView) convertView.findViewById(R.id.textView);
-        textView.setText("Number " + numbers[position]);
-        return convertView;
+//        if(convertView == null) {
+//            LayoutInflater inflater = LayoutInflater.from(aContext);
+//            convertView = inflater.inflate(R.layout.item, parent, false);
+//        }
+//        TextView textView = (TextView) convertView.findViewById(R.id.textView);
+//        textView.setText("Number " + numbers[position]);
+//        return convertView;
+        return null;
     }
 
     @Override

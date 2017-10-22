@@ -1,11 +1,12 @@
 package se.ju.group8.depot;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,15 +16,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity2 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    Fragment fragmentMain;
+    Fragment fragmentInventorylist;
+    Fragment fragmentShoppingList;
+    Fragment fragmentWantedItemsList;
+    FragmentManager fm;
+    FragmentTransaction ft;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //set view to the fragment_main2.xml layout
         setContentView(R.layout.fragment_main2);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,6 +58,18 @@ public class MainActivity2 extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        //setup
+        fragmentInventorylist = new ContextFragmentInventoryList();
+        fragmentShoppingList = new ContextFragmentShoppingList();
+        fragmentMain = new ContextFragmentInventoryList();
+        fragmentWantedItemsList = new ContextFragmentWantedItemsList();
+
+        fm = MainActivity2.this.getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        ft.replace(R.id.context_container, fragmentInventorylist, "inventoryList");
+        ft.commitNow();
     }
 
     @Override
@@ -78,30 +104,37 @@ public class MainActivity2 extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+//    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        //setup
+//        Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
 
-        Fragment fragment = new ContextFragment1();
 
-        android.app.FragmentManager fm = MainActivity2.this.getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.context_container, fragment, "inventory");
-        ft.commit();
+
+        //E2434
 
 
         if (id == R.id.nav_open_inventory) {
-            // Handle the camera action
+            Log.println(Log.DEBUG, "test", "test");
+            fm = MainActivity2.this.getSupportFragmentManager();
+            ft = fm.beginTransaction();
+            ft.replace(R.id.context_container, fragmentInventorylist, "inventoryList");
+            ft.commitNow();
         } else if (id == R.id.nav_scan_item) {
-    //replace
+            Toast.makeText(this, "camera", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_wanted_items_list) {
-
+            fm = MainActivity2.this.getSupportFragmentManager();
+            ft = fm.beginTransaction();
+            ft.replace(R.id.context_container, fragmentWantedItemsList, "wantedItemsList");
+            ft.commitNow();
         } else if (id == R.id.nav_shopping_list) {
-
+            fm = MainActivity2.this.getSupportFragmentManager();
+            ft = fm.beginTransaction();
+            ft.replace(R.id.context_container, fragmentShoppingList, "shoppingList");
+            ft.commitNow();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

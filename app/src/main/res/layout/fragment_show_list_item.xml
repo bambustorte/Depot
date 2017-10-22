@@ -10,7 +10,7 @@
         android:layout_height="167dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="**This should display the item Name and how much of it is left**" />
+        android:text="@string/placeholder1" />
 
     <Button
         android:id="@+id/button2"
