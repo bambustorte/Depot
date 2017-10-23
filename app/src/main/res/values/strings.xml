@@ -16,4 +16,8 @@
     <string name="text_overview">Overview</string>
     <string name="text_select_menuentry">Please select a menu entry</string>
     <string name="placeholder1" translatable="false">**This should display the item Name and how much of it is left**</string>
+    <string name="dialog_camera">camera</string>
+    <string name="dialog_how_to_add">How do you want to add the item?</string>
+    <string name="dialog_select_add_method">asdf</string>
+    <string name="dialog_manually">enter manually</string>
 </resources>

@@ -1,11 +1,13 @@
 package se.ju.group8.depot;
 
 import android.os.Bundle;
+import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
+    //store which tab is currently open
+    int openTab = 1;
 
 
     @Override
@@ -53,10 +57,24 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: add items to inventory, maybe make it dependent on which fragment is displayed
-                //TODO: e.g. add an item to the wanted list when this fragment is displayed
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                new AlertDialog.Builder(MainActivity.this).setTitle(R.string.dialog_select_add_method)
+                        .setMessage(R.string.dialog_how_to_add)
+                        .setNegativeButton(
+                                R.string.dialog_manually, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                                    }
+                                }
+                        ).setPositiveButton(
+                        R.string.dialog_camera, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int witchButton) {
+//                                DataManager.inventoryEntries.remove(position);
+                                //TODO: add items to inventory, maybe make it dependent on which fragment is displayed
+                                //TODO: e.g. add an item to the wanted list when this fragment is displayed
+                            }
+                        }
+                ).show();
+
             }
         });
 
@@ -67,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //add the actual drawer entries to the drawer
+        //add the actual drawer inventoryEntries to the drawer
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -125,7 +143,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-//    @SuppressWarnings("StatementWithEmptyBody")
+    //    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -139,22 +157,26 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
             fragmentTransaction.commitNow();
+            openTab = 1;
 
         } else if (id == R.id.nav_scan_item) {
             //TODO: ask for permission and use camera or open camera app
             Toast.makeText(this, "camera", Toast.LENGTH_LONG).show();
+            openTab = 2;
 
         } else if (id == R.id.nav_wanted_items_list) {
             fragmentManager = MainActivity.this.getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.context_container, fragmentWantedItemsList, "wantedItemsList");
             fragmentTransaction.commitNow();
+            openTab = 3;
 
         } else if (id == R.id.nav_shopping_list) {
             fragmentManager = MainActivity.this.getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.context_container, fragmentShoppingList, "shoppingList");
             fragmentTransaction.commitNow();
+            openTab = 4;
         }
 
         //finally close the drawer after tap on an item
@@ -162,5 +184,9 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    public int getOpenTab() {
+        return openTab;
     }
 }

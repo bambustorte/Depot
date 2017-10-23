@@ -12,6 +12,8 @@ public class Todos {
 
     //TODO: change the color theme of the app
 
+    //TODO: save added entries to the internal storage
 
+    //IDEA: export shopping list as a .txt file to the external storage
 
 }
