@@ -16,18 +16,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    //fragment variables for later use (switching through "screens"
     Fragment fragmentMain;
-    Fragment fragmentInventorylist;
+    Fragment fragmentInventoryList;
     Fragment fragmentShoppingList;
     Fragment fragmentWantedItemsList;
-    FragmentManager fm;
-    FragmentTransaction ft;
+
+    //fragment manager and transaction for dynamically changing fragments
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
 
 
@@ -38,46 +42,60 @@ public class MainActivity extends AppCompatActivity
         //set view to the fragment_main.xml layout
         setContentView(R.layout.fragment_main);
 
+        //"toolbar"... it's actually the bar on top of the main screen, including
+        //the floating menu, the main content of the application and the name
+        //displayed in the top of the app
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //the little round add button in the bottom left corner of the main screen(s)
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO: add items to inventory, maybe make it dependent on which fragment is displayed
+                //TODO: e.g. add an item to the wanted list when this fragment is displayed
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
 
+        //drawer menu
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //add the actual drawer entries to the drawer
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //setup
-        fragmentInventorylist = new ContextFragmentInventoryList();
+        //fragment setup (they are created here)
+        fragmentInventoryList = new ContextFragmentInventoryList();
         fragmentShoppingList = new ContextFragmentShoppingList();
         fragmentMain = new ContextFragmentInventoryList();
         fragmentWantedItemsList = new ContextFragmentWantedItemsList();
 
-        fm = MainActivity.this.getSupportFragmentManager();
-        ft = fm.beginTransaction();
-        ft.replace(R.id.context_container, fragmentInventorylist, "inventoryList");
-        ft.commitNow();
+        //setup for the dynamic fragment change stuff
+        fragmentManager = MainActivity.this.getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        //set the inventory list as the first displayed fragment after the app gets started
+        fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
+        fragmentTransaction.commitNow(); //commitNow to access the views instantly
+
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+            //if the drawer is open, close it
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            //otherwise normal back button behavior
             super.onBackPressed();
         }
     }
@@ -98,6 +116,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //TODO: make and implement settings screen
+            Snackbar.make(findViewById(R.id.context_container), "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
             return true;
         }
 
@@ -108,33 +129,31 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
+        //get the id of the item that was clicked
         int id = item.getItemId();
 
-//        Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
-
-
-
-        //E2434
-
-
         if (id == R.id.nav_open_inventory) {
-            Log.println(Log.DEBUG, "test", "test");
-            fm = MainActivity.this.getSupportFragmentManager();
-            ft = fm.beginTransaction();
-            ft.replace(R.id.context_container, fragmentInventorylist, "inventoryList");
-            ft.commitNow();
+            fragmentManager = MainActivity.this.getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
+            fragmentTransaction.commitNow();
+
         } else if (id == R.id.nav_scan_item) {
+            //TODO: ask for permission and open camera
             Toast.makeText(this, "camera", Toast.LENGTH_LONG).show();
+
         } else if (id == R.id.nav_wanted_items_list) {
-            fm = MainActivity.this.getSupportFragmentManager();
-            ft = fm.beginTransaction();
-            ft.replace(R.id.context_container, fragmentWantedItemsList, "wantedItemsList");
-            ft.commitNow();
+            fragmentManager = MainActivity.this.getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.context_container, fragmentWantedItemsList, "wantedItemsList");
+            fragmentTransaction.commitNow();
+
         } else if (id == R.id.nav_shopping_list) {
-            fm = MainActivity.this.getSupportFragmentManager();
-            ft = fm.beginTransaction();
-            ft.replace(R.id.context_container, fragmentShoppingList, "shoppingList");
-            ft.commitNow();
+            fragmentManager = MainActivity.this.getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.context_container, fragmentShoppingList, "shoppingList");
+            fragmentTransaction.commitNow();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

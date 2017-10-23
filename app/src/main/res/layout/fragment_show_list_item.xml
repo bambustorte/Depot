@@ -11,6 +11,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:text="@string/placeholder1" />
+        <!-- **This should display the item Name and how much of it is left** -->
 
     <Button
         android:id="@+id/button2"

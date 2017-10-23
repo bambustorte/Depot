@@ -6,15 +6,74 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import se.ju.group8.depot.R;
 
 public class ContextFragmentInventoryList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        System.out.println("test");
-        return inflater.inflate(R.layout.fragment_inventory, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
+
+        ListView listView = (ListView) rootView.findViewById(R.id.InventoryList);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext(),
+                android.R.layout.simple_list_item_1, Data.entriesToStringArray());
+
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                // TODO: show more information onClick, maybe delete option
+                System.out.println("test: " + Data.entries.get(position));
+            }
+        });
+
+
+//
+//        final ArrayAdapter adapter = new ArrayAdapter<Data.Entry>(
+//                this,
+//                android.R.layout.simple_list_item_1,
+//                Data.entries
+//        );
+//
+//        listView.setAdapter(adapter);
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+//                Data.Entry clickedEntry = Data.entries.get(position);
+////                if (getIntent().getIntExtra("action", 0) == 0) {
+////                    Intent intent = new Intent(PickTodoActivity.this, ViewTodoActivity.class);
+////                    intent.putExtra("todoIndex", position);
+////                    startActivity(intent);
+////                } else {
+////                    new AlertDialog.Builder(PickTodoActivity.this).setTitle("Delete ToDo")
+////                            .setMessage("really wanna delete it?")
+////                            .setPositiveButton(
+////                                    android.R.string.yes, new DialogInterface.OnClickListener() {
+////                                        public void onClick(DialogInterface dialog, int wichButton) {
+////                                            Data.entries.remove(position);
+//////                                            finish();
+//////                                            listView.invalidate();
+//////                                            View v = findViewById(R.id.linlay);
+//////                                            v.invalidate();
+////                                        }
+////                                    }).setNegativeButton(
+////                            android.R.string.no, new DialogInterface.OnClickListener() {
+////                                public void onClick(DialogInterface dialog, int whichButton) {
+////
+////                                }
+////                            }
+////                    ).show();
+////                }
+////                ad.notifyDataSetChanged();
+//
+//            }
+//        });
+
+        return rootView;
     }
 }
 
