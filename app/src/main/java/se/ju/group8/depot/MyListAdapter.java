@@ -38,12 +38,12 @@ public class MyListAdapter implements ListAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return this.numbers.length;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return (this.numbers.length == 0);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MyListAdapter implements ListAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        if (position < 0 || position >= this.numbers.length) return null; return numbers[position];
     }
 
     @Override
