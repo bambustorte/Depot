@@ -12,12 +12,12 @@ import android.support.v7.app.AppCompatActivity;
  * this class just "redirects" the user to the next activity atm
  */
 
-public class Starter extends AppCompatActivity {
+public class ActivityStarter extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ActivityMain.class);
         startActivity(intent);
 
     }

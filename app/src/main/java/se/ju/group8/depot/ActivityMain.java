@@ -1,5 +1,6 @@
 package se.ju.group8.depot;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
@@ -8,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,11 +18,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity
+public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     //fragment variables for later use (switching through "screens"
@@ -57,12 +57,14 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(MainActivity.this).setTitle(R.string.dialog_select_add_method)
+                new AlertDialog.Builder(ActivityMain.this).setTitle(R.string.dialog_select_add_method)
                         .setMessage(R.string.dialog_how_to_add)
                         .setNegativeButton(
                                 R.string.dialog_manually, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
-
+                                        Intent intent = new Intent(ActivityMain.this, ActivityAddEntry.class);
+                                        intent.putExtra("openTab", openTab);
+                                        startActivity(intent);
                                     }
                                 }
                         ).setPositiveButton(
@@ -97,13 +99,27 @@ public class MainActivity extends AppCompatActivity
         fragmentWantedItemsList = new ContextFragmentWantedItemsList();
 
         //setup for the dynamic fragment change stuff
-        fragmentManager = MainActivity.this.getSupportFragmentManager();
+        fragmentManager = ActivityMain.this.getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
         //set the inventory list as the first displayed fragment after the app gets started
         fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
         fragmentTransaction.commitNow(); //commitNow to access the views instantly
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(ContextFragmentInventoryList.adapter != null) {
+            ContextFragmentInventoryList.update();
+        }
+        if(ContextFragmentWantedItemsList.adapter != null) {
+            ContextFragmentWantedItemsList.update();
+        }
+        if(ContextFragmentShoppingList.adapter != null) {
+            ContextFragmentShoppingList.update();
+        }
     }
 
     @Override
@@ -153,7 +169,7 @@ public class MainActivity extends AppCompatActivity
 
         //in this if else construct the fragments get changed dynamically
         if (id == R.id.nav_open_inventory) {
-            fragmentManager = MainActivity.this.getSupportFragmentManager();
+            fragmentManager = ActivityMain.this.getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
             fragmentTransaction.commitNow();
@@ -165,14 +181,14 @@ public class MainActivity extends AppCompatActivity
             openTab = 2;
 
         } else if (id == R.id.nav_wanted_items_list) {
-            fragmentManager = MainActivity.this.getSupportFragmentManager();
+            fragmentManager = ActivityMain.this.getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.context_container, fragmentWantedItemsList, "wantedItemsList");
             fragmentTransaction.commitNow();
             openTab = 3;
 
         } else if (id == R.id.nav_shopping_list) {
-            fragmentManager = MainActivity.this.getSupportFragmentManager();
+            fragmentManager = ActivityMain.this.getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.context_container, fragmentShoppingList, "shoppingList");
             fragmentTransaction.commitNow();
