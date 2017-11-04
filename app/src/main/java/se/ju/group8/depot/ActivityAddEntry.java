@@ -31,9 +31,9 @@ public class ActivityAddEntry extends AppCompatActivity {
         TextView name = (TextView) findViewById(R.id.addName);
         EntryList list = DataManager.inventoryEntries;
 
-        if(openTab == 2){
-
-        }
+//        if(openTab == 2){
+//
+//        }
         if(openTab == 3){
             list = DataManager.wantedEntries;
         }
@@ -47,13 +47,6 @@ public class ActivityAddEntry extends AppCompatActivity {
 //        date = (TextView) findViewById(R.id.addDate);
 
         Log.d("added", list.add(nameString).toString());
-
-//        ContextFragmentInventoryList.adapter.clear();
-//        ContextFragmentInventoryList.adapter.addAll(DataManager.entriesToStringList(DataManager.inventoryEntries));
-//        ContextFragmentInventoryList.adapter.add();
-
-//        ContextFragmentInventoryList.adapter.notifyDataSetChanged();
-
         finish();
     }
 }

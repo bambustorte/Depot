@@ -35,4 +35,9 @@ class Entry {
     public String toString(){
         return "name: " + this.name + ", id: " + id;
     }
+
+    public String[] formatForDB(){
+        return {""
+    }
+
 }

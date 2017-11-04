@@ -1,5 +1,7 @@
 package se.ju.group8.depot;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,6 +11,8 @@ import java.util.Date;
  */
 
 class DataManager {
+    SQLiteDatabase database = DatabaseHelper.getInstance(this);
+
     //entries in the inventory
     static EntryList inventoryEntries = new EntryList();
 

@@ -53,6 +53,7 @@ class EntryList {
 
     Entry add(String name, String barcode, Date date){
         Entry entry = new Entry(id++, name, barcode, date);
+        DatabaseHelper.insert("INSERT INTO entriesInventory (name, barcode, dateBought) VALUES (?)", new String[]{ name, barcode, date.toString() });
         this.entries.add(entry);
         return entry;
     }

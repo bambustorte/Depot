@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,14 +19,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    //fragment variables for later use (switching through "screens"
+    //fragment variables for later use (switching through "screens")
     Fragment fragmentMain;
     Fragment fragmentInventoryList;
     Fragment fragmentShoppingList;
@@ -106,6 +106,7 @@ public class ActivityMain extends AppCompatActivity
         fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
         fragmentTransaction.commitNow(); //commitNow to access the views instantly
 
+
     }
 
     @Override
@@ -120,6 +121,8 @@ public class ActivityMain extends AppCompatActivity
         if(ContextFragmentShoppingList.adapter != null) {
             ContextFragmentShoppingList.update();
         }
+
+        Log.d("files", getFilesDir().toString());
     }
 
     @Override
