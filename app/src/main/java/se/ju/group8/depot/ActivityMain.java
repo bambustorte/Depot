@@ -25,6 +25,9 @@ import android.widget.Toast;
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    //this is the data manager
+    DataManager dataManager;
+
     //fragment variables for later use (switching through "screens")
     Fragment fragmentMain;
     Fragment fragmentInventoryList;
@@ -106,7 +109,7 @@ public class ActivityMain extends AppCompatActivity
         fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
         fragmentTransaction.commitNow(); //commitNow to access the views instantly
 
-
+        dataManager = new DataManager(this.getApplicationContext());
     }
 
     @Override

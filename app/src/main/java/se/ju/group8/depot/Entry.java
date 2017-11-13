@@ -37,7 +37,7 @@ class Entry {
     }
 
     public String[] formatForDB(){
-        return {""
+        return new String [] {""};
     }
 
 }

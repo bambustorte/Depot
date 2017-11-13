@@ -1,5 +1,6 @@
 package se.ju.group8.depot;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Date;
  */
 
 class DataManager {
-    SQLiteDatabase database = DatabaseHelper.getInstance(this);
+    SQLiteDatabase database;
 
     //entries in the inventory
     static EntryList inventoryEntries = new EntryList();
@@ -24,10 +25,10 @@ class DataManager {
 
 
     //make default constructor private to forbid creating objects
-    private DataManager(){}
+    public DataManager(Context context){database = DatabaseHelper.getInstance(context);}
 
     //this code gets executed no matter what
-    static{
+    static {
         //add some stuff to the lists because storage isn't implemented yet
         inventoryEntries.add("Spaghetti","123456789");
         inventoryEntries.add("Tomato Sauce","4238646842");
