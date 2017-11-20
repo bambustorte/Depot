@@ -24,7 +24,7 @@ public class ContextFragmentWantedItemsList extends Fragment {
 
         adapter = new ArrayAdapter<String>(rootView.getContext(),
                 android.R.layout.simple_list_item_1,
-                DataManager.wantedEntries.entriesToStringList());
+                DataManager.wantedEntries);
 
         listView.setAdapter(adapter);
 
@@ -39,7 +39,7 @@ public class ContextFragmentWantedItemsList extends Fragment {
     }
     static void update(){
         adapter.clear();
-        adapter.addAll(DataManager.inventoryEntries.entriesToStringList());
+        adapter.addAll(DataManager.inventoryEntries);
         adapter.notifyDataSetChanged();
     }
 }

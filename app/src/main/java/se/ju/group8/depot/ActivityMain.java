@@ -41,7 +41,6 @@ public class ActivityMain extends AppCompatActivity
     //store which tab is currently open
     int openTab = 1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

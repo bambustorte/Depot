@@ -24,14 +24,13 @@ public class ContextFragmentShoppingList extends Fragment {
 
         adapter = new ArrayAdapter<String>(rootView.getContext(),
                 android.R.layout.simple_list_item_1,
-                DataManager.shoppingListEntries.entriesToStringList());
-
+                DataManager.shoppingListEntries);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // TODO: show more information onClick, maybe delete option
-                Log.println(Log.DEBUG, "entry", DataManager.shoppingListEntries.get(position).toString());
+//                Log.println(Log.DEBUG, "entry", DataManager.shoppingListEntries.get(position).toString());
             }
         });
 
@@ -39,7 +38,7 @@ public class ContextFragmentShoppingList extends Fragment {
     }
     static void update(){
         adapter.clear();
-        adapter.addAll(DataManager.inventoryEntries.entriesToStringList());
+        adapter.addAll(DataManager.inventoryEntries);
         adapter.notifyDataSetChanged();
     }
 }

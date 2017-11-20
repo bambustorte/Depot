@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "396476472063",
+    "firebase_url": "https://depot-c5b39.firebaseio.com",
+    "project_id": "depot-c5b39",
+    "storage_bucket": "depot-c5b39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396476472063:android:a219b16275f22d72",
+        "android_client_info": {
+          "package_name": "se.ju.group8.depot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396476472063-4k7l1iglp549nqpkl673el1ljduhvkaq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqyJzpWpnq_gIQp2tSsnPEwlXNt-YaGy8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

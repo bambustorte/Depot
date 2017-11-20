@@ -10,9 +10,9 @@ import java.util.Date;
 class Entry {
     //properties of the entry
     //TODO: think of more properties and their data types
-    String name, barcode;
-    Date BestBefore, DateBought;
-    int id;
+    private String name, barcode;
+    private Date BestBefore, DateBought;
+    private int id;
 
     Entry(int id, String name){
         //just the name is required, if no barcode is given, leave it blank

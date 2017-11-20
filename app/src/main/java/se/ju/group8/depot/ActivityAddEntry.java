@@ -29,16 +29,17 @@ public class ActivityAddEntry extends AppCompatActivity {
 
     public void onAddClick(View view){
         TextView name = (TextView) findViewById(R.id.addName);
-        EntryList list = DataManager.inventoryEntries;
+        int category = 1;
 
-//        if(openTab == 2){
-//
-//        }
+
+        if(openTab == 2){
+
+        }
         if(openTab == 3){
-            list = DataManager.wantedEntries;
+            category = 2;
         }
         if(openTab == 4){
-            list = DataManager.shoppingListEntries;
+            category = 3;
         }
 
         String nameString = name.getText().toString();
@@ -46,7 +47,7 @@ public class ActivityAddEntry extends AppCompatActivity {
 
 //        date = (TextView) findViewById(R.id.addDate);
 
-        Log.d("added", list.add(nameString).toString());
+        Log.d("added", DataManager.getInstance(view.getContext()).add(nameString).toString());
         finish();
     }
 }
