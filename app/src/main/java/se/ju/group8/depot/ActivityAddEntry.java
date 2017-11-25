@@ -47,7 +47,7 @@ public class ActivityAddEntry extends AppCompatActivity {
 
 //        date = (TextView) findViewById(R.id.addDate);
 
-        Log.d("added", DataManager.getInstance(view.getContext()).add(nameString).toString());
+        Log.d("added", DataManager.getInstance(null).add(category, nameString).toString());
         finish();
     }
 }

@@ -25,6 +25,8 @@ import android.widget.Toast;
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Intent intent = getIntent();
+
     //this is the data manager
     DataManager dataManager;
 

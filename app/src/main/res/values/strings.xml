@@ -20,4 +20,21 @@
     <string name="dialog_how_to_add">How do you want to add the item?</string>
     <string name="dialog_select_add_method">asdf</string>
     <string name="dialog_manually">enter manually</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="login_sign_in">Sing In</string>
+    <string name="login_register">Not registered yet?</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_register2">Back to sign in</string>
 </resources>

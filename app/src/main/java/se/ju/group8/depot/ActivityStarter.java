@@ -17,7 +17,7 @@ public class ActivityStarter extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this, ActivityMain.class);
+        Intent intent = new Intent(this, ActivityLogin.class);
         startActivity(intent);
 
     }

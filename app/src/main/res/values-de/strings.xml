@@ -15,4 +15,8 @@
     <string name="text_overview">Übersicht</string>
     <string name="text_select_menuentry">Bitte Menüpunkt wählen</string>
     <string name="dialog_camera">Kamera</string>
+    <string name="login_register">Noch nicht registriert?</string>
+    <string name="login_sign_in">Einloggen</string>
+    <string name="login_username">Benutzername</string>
+    <string name="login_password">Passwort</string>
 </resources>
