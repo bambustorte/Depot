@@ -170,12 +170,27 @@ public class ActivityMain extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_settings) {
             //TODO: make and implement settings screen
             Snackbar.make(findViewById(R.id.context_container), "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-            ContextFragmentTest cft = (ContextFragmentTest) fragmentTest;
-            cft.update();
+            return true;
+        }
+
+        //sign out option
+        if (id == R.id.menu_sign_out) {
+            FirebaseAuth.getInstance().signOut();
+            //TODO: finish()?
+            return true;
+        }
+
+        //display current user
+        if (id == R.id.menu_show_user) {
+//            ContextFragmentTest cft = (ContextFragmentTest) fragmentTest;
+//            cft.update();
+            Toast.makeText(ActivityMain.this.getApplicationContext(),
+                    user.getUid(), Toast.LENGTH_LONG)
+                    .show();
             return true;
         }
 
