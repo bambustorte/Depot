@@ -3,6 +3,8 @@ package se.ju.group8.depot;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,6 +20,12 @@ class DataManager {
     int length1;
     int length2;
     int length3;
+
+    static ArrayList<String> shoppingListEntries = new ArrayList<>();
+    static ArrayList<String> wantedEntries = new ArrayList<>();
+    static ArrayList<String> inventoryEntries = new ArrayList<>();
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private int id = 0;
     FirebaseDatabase database;
@@ -35,33 +43,40 @@ class DataManager {
         return instance;
     }
 
-    //this code gets executed no matter what
-    static {
-
-        getInstance().add(1, "Spaghetti");
-        getInstance().add(1, "Tomato Sauce");
-        getInstance().add(1, "Tomato Sauce2");
-        getInstance().add(1, "Onions");
-
-        getInstance().add(2, "Spaghetti");
-        getInstance().add(2, "Tomato Sauce");
-
-        getInstance().add(3, "Potatoes");
+    void init(){
+        myRef = database.getReference("");//
     }
 
-    Entry add(int list, String str){
+    //this code gets executed no matter what
+    static {
+//
+//        getInstance().add(1, "Spaghetti");
+//        getInstance().add(1, "Tomato Sauce");
+//        getInstance().add(1, "Tomato Sauce2");
+//        getInstance().add(1, "Onions");
+//
+//        getInstance().add(2, "Spaghetti");
+//        getInstance().add(2, "Tomato Sauce");
+//
+//        getInstance().add(3, "Potatoes");
+    }
+
+    Entry add(int list, String str, int value){
 
         // Write a message to the database
 
-        myRef = database.getReference("inventorys/lengths" + list);
+        String path = "user/" + user.getUid() + "/" + list;
 
-        myRef.setValue(myRef.get);
+        myRef = database.getReference(path);
+
+        Log.d("fire", path);
+
+        myRef.setValue(str);
+
+        myRef.child(str).setValue(value);
+//        myRef.child(str);
 
         Log.d("fire", list + ": " + str);
-//        Log.d("fireb", myRef.getKey());
-
-//        myRef.child("alanisawesome").setValue(str);
-
         return new Entry(++id, str);
     }
 

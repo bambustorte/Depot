@@ -21,20 +21,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Intent intent = getIntent();
-
     //this is the data manager
     DataManager dataManager;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     //fragment variables for later use (switching through "screens")
     Fragment fragmentMain;
     Fragment fragmentInventoryList;
     Fragment fragmentShoppingList;
     Fragment fragmentWantedItemsList;
+    Fragment fragmentTest;
 
     //fragment manager and transaction for dynamically changing fragments
     FragmentManager fragmentManager;
@@ -46,6 +51,14 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //enable firebase offline capabilities
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        if(user == null){
+            Intent login = new Intent(this.getApplicationContext(), ActivityLogin.class);
+            startActivity(login);
+        }
 
         //set view to the fragment_main.xml layout
         setContentView(R.layout.fragment_main);
@@ -101,16 +114,17 @@ public class ActivityMain extends AppCompatActivity
         fragmentShoppingList = new ContextFragmentShoppingList();
         fragmentMain = new ContextFragmentInventoryList();
         fragmentWantedItemsList = new ContextFragmentWantedItemsList();
+        fragmentTest = new ContextFragmentTest();
 
         //setup for the dynamic fragment change stuff
         fragmentManager = ActivityMain.this.getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
         //set the inventory list as the first displayed fragment after the app gets started
-        fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
+        fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
         fragmentTransaction.commitNow(); //commitNow to access the views instantly
 
-        dataManager = new DataManager(this.getApplicationContext());
+        dataManager = new DataManager();
     }
 
     @Override
@@ -160,6 +174,8 @@ public class ActivityMain extends AppCompatActivity
             //TODO: make and implement settings screen
             Snackbar.make(findViewById(R.id.context_container), "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
+            ContextFragmentTest cft = (ContextFragmentTest) fragmentTest;
+            cft.update();
             return true;
         }
 

@@ -59,17 +59,12 @@ public class ActivityLogin extends AppCompatActivity {
                         registerUser(uEmail.getText().toString(), uPass.getText().toString());
 //                        uEmail.setText("");
 //                        uPass.setText("");
-                        register = false;
-                        register_text_view.setText(R.string.login_register);
+
                     } else {
-                        if(signInUser(uEmail.getText().toString(), uPass.getText().toString())) {
-                            Intent intent = new Intent(ActivityLogin.this.getApplicationContext(), ActivityMain.class);
+                        signInUser(uEmail.getText().toString(), uPass.getText().toString());
 
-                            intent.putExtra("userEmail", user.getEmail());
-                            intent.putExtra("userID", user.getUid());
-
-                            startActivity(intent);
-                        }
+                        Intent intent = new Intent(ActivityLogin.this.getApplicationContext(), ActivityMain.class);
+                        startActivity(intent);
                     }
                 }
             }
@@ -85,45 +80,37 @@ public class ActivityLogin extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("login", "createUserWithEmail:success");
                             user = auth.getCurrentUser();
-//                            updateUI(user);
+                            register = false;
+                            register_text_view.setText(R.string.login_register);
                         } else {
                             // If sign in fails, display a message to the user.
+                            Log.d("test", task.getException().getMessage());
                             Log.w("login", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(ActivityLogin.this, "Authentication failed.",
+                            Toast.makeText(ActivityLogin.this, "Authentication failed, " + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
                         }
-
-                        // ...
                     }
                 });
         return true;
     }
 
-    public boolean signInUser(String email, String password){
-        final boolean[] success = {false};
+    void signInUser(String email, String password){
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    boolean inner;
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("login", "signInWithEmail:success");
-                            FirebaseUser user = auth.getCurrentUser();
-                            success[0] = true;
-//                            updateUI(user);
+                            Intent intent = new Intent(ActivityLogin.this.getApplicationContext(), ActivityMain.class);
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("login", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(ActivityLogin.this, "Authentication failed.",
+                            Toast.makeText(ActivityLogin.this, "Authentication failed, " + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
                         }
-
-                        // ...
                     }
                 });
-        return success[0];
     }
 }

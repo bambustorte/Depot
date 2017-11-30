@@ -26,4 +26,20 @@ public class UsefulCodeForDebugging {
 //    Snackbar.make(findViewById(R.id.context_container), "Replace with your own action", Snackbar.LENGTH_LONG)
 //                    .setAction("Action", null).show();
 
+
+    //old firebase rules
+//    {
+//        "rules": {
+//        "user": {
+//            "$uid": {
+//                ".read": "$uid === auth.uid",
+//                        ".write": "$uid === auth.uid"
+//            }
+//        }
+//        "barcodes": {
+//
+//        }
+//    }
+//    }
+
 }
