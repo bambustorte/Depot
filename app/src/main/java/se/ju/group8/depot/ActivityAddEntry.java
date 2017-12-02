@@ -29,6 +29,7 @@ public class ActivityAddEntry extends AppCompatActivity {
 
     public void onAddClick(View view){
         TextView name = (TextView) findViewById(R.id.addName);
+        TextView amount = (TextView) findViewById(R.id.addAmount);
         int category = 1;
 
 
@@ -43,11 +44,15 @@ public class ActivityAddEntry extends AppCompatActivity {
         }
 
         String nameString = name.getText().toString();
+        String value = amount.getText().toString();
+
+        DataManager.getInstance().add(category, nameString, Integer.valueOf(value));
+
 //        TextView date;
 
 //        date = (TextView) findViewById(R.id.addDate);
 
-        Log.d("added", DataManager.getInstance().add(category, nameString, 57).toString());
+//        Log.d("added", DataManager.getInstance().add(category, nameString, 57).toString());
         finish();
     }
 }

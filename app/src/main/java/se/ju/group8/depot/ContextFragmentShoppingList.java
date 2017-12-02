@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 public class ContextFragmentShoppingList extends Fragment {
 
-    static ArrayAdapter<String> adapter;
+    static ArrayAdapter<Entry> adapter;
 
     @Nullable
     @Override
@@ -22,9 +22,9 @@ public class ContextFragmentShoppingList extends Fragment {
 
         ListView listView = (ListView) rootView.findViewById(R.id.ShoppingList);
 
-        adapter = new ArrayAdapter<String>(rootView.getContext(),
+        adapter = new ArrayAdapter<>(rootView.getContext(),
                 android.R.layout.simple_list_item_1,
-                DataManager.shoppingListEntries);
+                DataManager.getInstance().shoppingList.toArrayList());
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -38,7 +38,7 @@ public class ContextFragmentShoppingList extends Fragment {
     }
     static void update(){
         adapter.clear();
-        adapter.addAll(DataManager.inventoryEntries);
+        adapter.addAll(DataManager.getInstance().shoppingList.toArrayList());
         adapter.notifyDataSetChanged();
     }
 }

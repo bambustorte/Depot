@@ -32,7 +32,7 @@ public class ActivityMain extends AppCompatActivity
     //this is the data manager
     DataManager dataManager;
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user;
 
     //fragment variables for later use (switching through "screens")
     Fragment fragmentMain;
@@ -55,10 +55,16 @@ public class ActivityMain extends AppCompatActivity
         //enable firebase offline capabilities
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         if(user == null){
             Intent login = new Intent(this.getApplicationContext(), ActivityLogin.class);
             startActivity(login);
+            finish();
         }
+
+        //start data manager first
+        dataManager = DataManager.getInstance();
 
         //set view to the fragment_main.xml layout
         setContentView(R.layout.fragment_main);
@@ -120,11 +126,11 @@ public class ActivityMain extends AppCompatActivity
         fragmentManager = ActivityMain.this.getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
+        //Don'tForget: replace test fragment with inventory list fragment
         //set the inventory list as the first displayed fragment after the app gets started
         fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
         fragmentTransaction.commitNow(); //commitNow to access the views instantly
 
-        dataManager = new DataManager();
     }
 
     @Override
@@ -181,6 +187,9 @@ public class ActivityMain extends AppCompatActivity
         if (id == R.id.menu_sign_out) {
             FirebaseAuth.getInstance().signOut();
             //TODO: finish()?
+            finish();
+            startActivity(new Intent(ActivityMain.this.getApplicationContext(), ActivityMain.class));
+//            ActivityMain.this.recreate();
             return true;
         }
 

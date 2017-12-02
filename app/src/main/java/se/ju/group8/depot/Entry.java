@@ -1,5 +1,9 @@
 package se.ju.group8.depot;
 
+import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
 import java.util.Date;
 
 /**
@@ -8,23 +12,47 @@ import java.util.Date;
  */
 
 class Entry {
+    public static final int
+            INVENTORY_LIST = 1,
+            WANTED_LIST = 2,
+            SHOPPING_LIST = 3;
+
     //properties of the entry
     //TODO: think of more properties and their data types
     private String name, barcode;
+    private int type;
     private Date BestBefore, DateBought;
-    private int id;
+    private long id;
 
-    Entry(int id, String name){
-        //just the name is required, if no barcode is given, leave it blank
-        this(id, name, "");
-    }
+    Entry(){};
 
-    Entry(int id, String name, String barcode) {
-        //if no date is given, use the current date
-        this(id, name, barcode, new Date());
-    }
-    Entry(int id, String name, String barcode, Date DateBought) {
+//    Entry(int id, int type, String name, String barcode, Date DateBought) {
+//        this.id = id;
+//        this.type = type;
+//        this.name = name;
+//        this.barcode = barcode;
+//        this.DateBought = DateBought;
+//    }
+//
+//    Entry(int id, int type, String name, String barcode, Date DateBought) {
+//        this.id = id;
+//        this.type = type;
+//        this.name = name;
+//        this.barcode = barcode;
+//        this.DateBought = DateBought;
+//    }
+//
+//    Entry(int id, int type, String name, String barcode, Date DateBought) {
+//        this.id = id;
+//        this.type = type;
+//        this.name = name;
+//        this.barcode = barcode;
+//        this.DateBought = DateBought;
+//    }
+
+    Entry(int id, int type, String name, String barcode, Date DateBought) {
         this.id = id;
+        this.type = type;
         this.name = name;
         this.barcode = barcode;
         this.DateBought = DateBought;
@@ -36,8 +64,54 @@ class Entry {
         return "name: " + this.name + ", id: " + id;
     }
 
-    public String[] formatForDB(){
-        return new String [] {""};
+
+
+    //getter&setter
+    public String getName() {
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public Date getBestBefore() {
+        return BestBefore;
+    }
+
+    public void setBestBefore(Date bestBefore) {
+        BestBefore = bestBefore;
+    }
+
+    public Date getDateBought() {
+        return DateBought;
+    }
+
+    public void setDateBought(Date dateBought) {
+        DateBought = dateBought;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

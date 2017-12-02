@@ -63,15 +63,15 @@ public class ActivityLogin extends AppCompatActivity {
                     } else {
                         signInUser(uEmail.getText().toString(), uPass.getText().toString());
 
-                        Intent intent = new Intent(ActivityLogin.this.getApplicationContext(), ActivityMain.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(ActivityLogin.this.getApplicationContext(), ActivityMain.class);
+//                        startActivity(intent);
                     }
                 }
             }
         });
     }
 
-    public boolean registerUser(String email, String password){
+    public void registerUser(String email, String password){
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -82,6 +82,7 @@ public class ActivityLogin extends AppCompatActivity {
                             user = auth.getCurrentUser();
                             register = false;
                             register_text_view.setText(R.string.login_register);
+                            Toast.makeText(ActivityLogin.this.getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.d("test", task.getException().getMessage());
@@ -91,7 +92,6 @@ public class ActivityLogin extends AppCompatActivity {
                         }
                     }
                 });
-        return true;
     }
 
     void signInUser(String email, String password){
@@ -104,6 +104,7 @@ public class ActivityLogin extends AppCompatActivity {
                             Log.d("login", "signInWithEmail:success");
                             Intent intent = new Intent(ActivityLogin.this.getApplicationContext(), ActivityMain.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("login", "signInWithEmail:failure", task.getException());

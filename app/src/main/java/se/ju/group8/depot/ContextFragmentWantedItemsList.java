@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 public class ContextFragmentWantedItemsList extends Fragment {
 
-    static ArrayAdapter<String> adapter;
+    static ArrayAdapter<Entry> adapter;
 
     @Nullable
     @Override
@@ -22,16 +22,16 @@ public class ContextFragmentWantedItemsList extends Fragment {
 
         ListView listView = (ListView) rootView.findViewById(R.id.WantedList);
 
-        adapter = new ArrayAdapter<String>(rootView.getContext(),
+        adapter = new ArrayAdapter<>(rootView.getContext(),
                 android.R.layout.simple_list_item_1,
-                DataManager.wantedEntries);
+                DataManager.getInstance().wantedList.toArrayList());
 
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // TODO: show more information onClick, maybe delete option
-                Log.println(Log.DEBUG, "entry", DataManager.wantedEntries.get(position).toString());
+//                Log.println(Log.DEBUG, "entry", DataManager.wantedEntries.get(position).toString());
             }
         });
 
@@ -39,7 +39,7 @@ public class ContextFragmentWantedItemsList extends Fragment {
     }
     static void update(){
         adapter.clear();
-        adapter.addAll(DataManager.inventoryEntries);
+        adapter.addAll(DataManager.getInstance().wantedList.toArrayList());
         adapter.notifyDataSetChanged();
     }
 }
