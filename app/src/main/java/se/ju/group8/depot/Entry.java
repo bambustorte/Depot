@@ -26,30 +26,6 @@ class Entry {
 
     Entry(){};
 
-//    Entry(int id, int type, String name, String barcode, Date DateBought) {
-//        this.id = id;
-//        this.type = type;
-//        this.name = name;
-//        this.barcode = barcode;
-//        this.DateBought = DateBought;
-//    }
-//
-//    Entry(int id, int type, String name, String barcode, Date DateBought) {
-//        this.id = id;
-//        this.type = type;
-//        this.name = name;
-//        this.barcode = barcode;
-//        this.DateBought = DateBought;
-//    }
-//
-//    Entry(int id, int type, String name, String barcode, Date DateBought) {
-//        this.id = id;
-//        this.type = type;
-//        this.name = name;
-//        this.barcode = barcode;
-//        this.DateBought = DateBought;
-//    }
-
     Entry(long id, int amount, String name, String barcode, Date DateBought) {
         this.id = id;
         this.amount = amount;
@@ -61,7 +37,7 @@ class Entry {
     @Override
     //TODO: make toString more beautiful
     public String toString(){
-        return "name: " + this.name + ", id: " + id + " , amount: " + amount;
+        return "name: " + this.name + "/id: " + id + "/amount: " + amount;
     }
 
 

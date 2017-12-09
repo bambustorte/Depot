@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Date;
+
 /**
  * @author max
  * @date 10/24/17.
@@ -30,12 +32,14 @@ public class ActivityAddEntry extends AppCompatActivity {
     public void onAddClick(View view){
         TextView name = (TextView) findViewById(R.id.addName);
         TextView amount = (TextView) findViewById(R.id.addAmount);
+        TextView barcode = (TextView) findViewById(R.id.addBarcode);
+        TextView date = (TextView) findViewById(R.id.addDate);
+
         int category = 1;
 
-
-        if(openTab == 2){
-
-        }
+//        if(openTab == 2){
+//
+//        }
         if(openTab == 3){
             category = 2;
         }
@@ -44,15 +48,26 @@ public class ActivityAddEntry extends AppCompatActivity {
         }
 
         String nameString = name.getText().toString();
-        String value = amount.getText().toString();
+        String amountString = amount.getText().toString();
+        String barcodeString = barcode.getText().toString();
+        String dateString = date.getText().toString();
 
-        DataManager.getInstance().add(category, nameString, Integer.valueOf(value));
 
-//        TextView date;
-
-//        date = (TextView) findViewById(R.id.addDate);
-
-//        Log.d("added", DataManager.getInstance().add(category, nameString, 57).toString());
+        if(dateString.isEmpty()){
+            if(barcodeString.isEmpty()){
+                if (amountString.isEmpty()){
+                    DataManager.getInstance().add(category, nameString);
+                } else {
+                    DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString));
+                }
+            } else {
+                DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString);
+            }
+        } else {
+            DataManager.getInstance().add(category, nameString,
+                    Integer.valueOf(amountString), barcodeString, new Date());
+        }
+        Log.d("log", "addentry: added");
         finish();
     }
 }

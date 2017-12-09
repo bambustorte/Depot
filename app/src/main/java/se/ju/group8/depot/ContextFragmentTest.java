@@ -27,7 +27,6 @@ public class ContextFragmentTest extends Fragment {
         rootView.findViewById(R.id.testButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataManager.print();
                 Log.d("test",
                         FirebaseDatabase.getInstance().
                                 getReference(

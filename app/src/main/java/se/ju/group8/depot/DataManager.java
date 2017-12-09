@@ -12,7 +12,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
 /**
  * @author max
@@ -60,7 +59,7 @@ class DataManager {
 
         refToList1 = userData.child("1");
         Log.d("log", refToList1.toString());
-        refToList1.addValueEventListener(new ValueEventListener() {
+        refToList1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("call", "ondatachange call");
@@ -68,10 +67,10 @@ class DataManager {
 
                 for (DataSnapshot o : dataSnapshot.getChildren()) {
                     Entry newEntry = o.getValue(Entry.class);
-                    Log.d("debug", newEntry.toString());
+                    Log.d("log", newEntry.toString());
                     entrs.add(newEntry);
                 }
-//                inventoryList.update(entrs);
+                inventoryList.update(entrs);
             }
 
             @Override
@@ -92,24 +91,24 @@ class DataManager {
     static {
         Log.d("call", "datamanager static");
 
-        getInstance().add(1, "null", 0);
-        getInstance().add(1, "Spaghetti", 500);
-        getInstance().add(1, "Tomato Sauce", 500, "124323324");
-        getInstance().add(1, "Tomato Sauce2", 200);
-        getInstance().add(1, "Onions", 3);
-
-        getInstance().add(2, "Spaghetti", 100);
-        getInstance().add(2, "Tomato Sauce", 1000);
-
-        getInstance().add(3, "Tomato Sauce", 500);
+//        getInstance().add(1, "null", 0);
+//        getInstance().add(1, "Spaghetti", 500);
+//        getInstance().add(1, "Tomato Sauce", 500, "124323324");
+//        getInstance().add(1, "Tomato Sauce2", 200);
+//        getInstance().add(1, "Onions", 3);
+//
+//        getInstance().add(2, "Spaghetti", 100);
+//        getInstance().add(2, "Tomato Sauce", 1000);
+//
+//        getInstance().add(3, "Tomato Sauce", 500);
     }
 
     static void dropInstance(){
         instance = null;
     }
 
-    static void print(){
-//        Log.d("test", getInstance().testEntry.toString());
+    void add(int list, String name){
+        add(list, name, 1);
     }
 
     void add(int list, String name, int value){
@@ -130,21 +129,12 @@ class DataManager {
             listToAdd = shoppingList;
 
         Entry entryToAdd = listToAdd.addEntry(name, value, barcode, DateBought);
-        // Write a message to the database
 
+        // Write a message to the database
         myRef = userData.child(Integer.toString(list)).child(name);
         myRef.setValue(entryToAdd);
         //TODO: manage child nodes
     }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    //returns a string array instead of the objects in the given array
-
-
 
     class EntryList{
         static final int
@@ -172,16 +162,32 @@ class DataManager {
         }
 
         void update(ArrayList<Entry> externalEntries){
-            for (Entry externalEntry : externalEntries) {
+            Entry externalEntry;
+            for (int i = 0; i < externalEntries.size(); i++) {
+                externalEntry = externalEntries.get(i);
+
                 //update id of the list to ensure that it is the highest
                 if(this.id <= externalEntry.getId()) {
                     this.id = externalEntry.getId()+1;
                 }
+//                Entries.add(new Entry(id++, 34, "test", "", new Date()));
+                Log.d("test", Entries.toString());
+//                Log.d("test", "ich bin liste " + this.type);
 
-                Log.d("test", DataManager.getInstance().wantedList.toArrayList().toString());
+
+
+
+
+
+
+
 
                 //check for all internal entries, if external entry exists yet
-                for (Entry internalEntry : Entries) {
+                Entry internalEntry;
+                for (int j = 0; j < Entries.size(); j++) {
+//                    Log.d("log", "" + Entries.size());
+                    internalEntry = Entries.get(j);
+
                     //if entry with "name" already exists, increase its amount
                     if(internalEntry.getName().equals(externalEntry.getName())) {
                         Log.d("entry", internalEntry.toString());
@@ -195,9 +201,10 @@ class DataManager {
                     }
                 }
             }
-//            if(ContextFragmentInventoryList.adapter != null) {
-//                ContextFragmentInventoryList.update();
-//            }
+
+            if(ContextFragmentInventoryList.adapter != null) {
+                ContextFragmentInventoryList.update();
+            }
         }
     }
 }

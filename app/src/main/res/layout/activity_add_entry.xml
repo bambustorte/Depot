@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/addLabelName"
+        android:labelFor="@+id/addName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Name" />
@@ -19,9 +21,10 @@
 
     <TextView
         android:id="@+id/addLabelAmount"
+        android:labelFor="@+id/addAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="amount" />
 
     <EditText
         android:id="@+id/addAmount"
@@ -31,13 +34,14 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/addLabelBarcode"
+        android:labelFor="@+id/addBarcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="barcode" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/addBarcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -45,6 +49,7 @@
 
     <TextView
         android:id="@+id/addLabelDate"
+        android:labelFor="@+id/addDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Date Bought" />
@@ -55,12 +60,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date" />
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Switch" />
 
     <Button
         android:id="@+id/addButton"
