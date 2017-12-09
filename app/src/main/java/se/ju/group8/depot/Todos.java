@@ -10,6 +10,11 @@ public class Todos {
     //this class just contains general TODO's
 
 
+
+    //TODO: show auth process
+
+    //TODO: fix crash enablePersistence must be called first
+
     //TODO: change the color theme of the app
 
     //TODO: save added entries to the internal storage

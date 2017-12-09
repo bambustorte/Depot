@@ -20,7 +20,7 @@ class Entry {
     //properties of the entry
     //TODO: think of more properties and their data types
     private String name, barcode;
-    private int type;
+    private int amount;
     private Date BestBefore, DateBought;
     private long id;
 
@@ -50,9 +50,9 @@ class Entry {
 //        this.DateBought = DateBought;
 //    }
 
-    Entry(int id, int type, String name, String barcode, Date DateBought) {
+    Entry(long id, int amount, String name, String barcode, Date DateBought) {
         this.id = id;
-        this.type = type;
+        this.amount = amount;
         this.name = name;
         this.barcode = barcode;
         this.DateBought = DateBought;
@@ -61,7 +61,7 @@ class Entry {
     @Override
     //TODO: make toString more beautiful
     public String toString(){
-        return "name: " + this.name + ", id: " + id;
+        return "name: " + this.name + ", id: " + id + " , amount: " + amount;
     }
 
 
@@ -99,12 +99,12 @@ class Entry {
         DateBought = dateBought;
     }
 
-    public int getType() {
-        return type;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setAmount(int type) {
+        this.amount = type;
     }
 
     public long getId() {

@@ -61,11 +61,11 @@ public class ActivityMain extends AppCompatActivity
             Intent login = new Intent(this.getApplicationContext(), ActivityLogin.class);
             startActivity(login);
             finish();
+        } else {
+
+            //start data manager first
+            dataManager = DataManager.getInstance();
         }
-
-        //start data manager first
-        dataManager = DataManager.getInstance();
-
         //set view to the fragment_main.xml layout
         setContentView(R.layout.fragment_main);
 
@@ -128,7 +128,9 @@ public class ActivityMain extends AppCompatActivity
 
         //Don'tForget: replace test fragment with inventory list fragment
         //set the inventory list as the first displayed fragment after the app gets started
-        fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
+//        fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
+        fragmentTransaction.replace(R.id.context_container, fragmentInventoryList,
+                "inventoryList");
         fragmentTransaction.commitNow(); //commitNow to access the views instantly
 
     }
@@ -187,6 +189,7 @@ public class ActivityMain extends AppCompatActivity
         if (id == R.id.menu_sign_out) {
             FirebaseAuth.getInstance().signOut();
             //TODO: finish()?
+            DataManager.dropInstance();
             finish();
             startActivity(new Intent(ActivityMain.this.getApplicationContext(), ActivityMain.class));
 //            ActivityMain.this.recreate();

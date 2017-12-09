@@ -31,9 +31,8 @@ class DataManager {
 //    static ArrayList<String> shoppingListEntries = new ArrayList<>();
     EntryList shoppingList;
 
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser user;
 
-    private int id = 0;
     private FirebaseDatabase database;
     private DatabaseReference userData;
     private DatabaseReference refToList1;
@@ -48,6 +47,8 @@ class DataManager {
     private DataManager(){
         //get database
         database = FirebaseDatabase.getInstance();
+        //and user
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         //user root of database
         userData = database.getReference("user/" + user.getUid());
@@ -58,19 +59,19 @@ class DataManager {
         shoppingList = new EntryList(EntryList.SHOPPING_LIST);
 
         refToList1 = userData.child("1");
+        Log.d("log", refToList1.toString());
         refToList1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("call", "ondatachange call");
+                ArrayList<Entry> entrs = new ArrayList<>();
 
                 for (DataSnapshot o : dataSnapshot.getChildren()) {
-
                     Entry newEntry = o.getValue(Entry.class);
-
-                    Log.d("test", o.toString());
+                    Log.d("debug", newEntry.toString());
+                    entrs.add(newEntry);
                 }
-
-
-//                DataManager.getInstance().inventoryList.;
+//                inventoryList.update(entrs);
             }
 
             @Override
@@ -89,8 +90,11 @@ class DataManager {
 
     //this code gets executed no matter what
     static {
+        Log.d("call", "datamanager static");
+
+        getInstance().add(1, "null", 0);
         getInstance().add(1, "Spaghetti", 500);
-        getInstance().add(1, "Tomato Sauce", 500);
+        getInstance().add(1, "Tomato Sauce", 500, "124323324");
         getInstance().add(1, "Tomato Sauce2", 200);
         getInstance().add(1, "Onions", 3);
 
@@ -98,6 +102,10 @@ class DataManager {
         getInstance().add(2, "Tomato Sauce", 1000);
 
         getInstance().add(3, "Tomato Sauce", 500);
+    }
+
+    static void dropInstance(){
+        instance = null;
     }
 
     static void print(){
@@ -145,7 +153,7 @@ class DataManager {
                 SHOPPING_LIST = 3;
 
         int type;
-        int id = 1;
+        long id = 1;
         ArrayList<Entry> Entries;
 
         EntryList(int type){
@@ -154,13 +162,42 @@ class DataManager {
         }
 
         Entry addEntry(String name, int value, String barcode, Date dateBought){
-            Entry entry = new Entry(id++, this.type, name, barcode, dateBought);
+            Entry entry = new Entry(id++, value, name, barcode, dateBought);
             Entries.add(entry);
             return entry;
         }
 
         ArrayList<Entry> toArrayList(){
             return Entries;
+        }
+
+        void update(ArrayList<Entry> externalEntries){
+            for (Entry externalEntry : externalEntries) {
+                //update id of the list to ensure that it is the highest
+                if(this.id <= externalEntry.getId()) {
+                    this.id = externalEntry.getId()+1;
+                }
+
+                Log.d("test", DataManager.getInstance().wantedList.toArrayList().toString());
+
+                //check for all internal entries, if external entry exists yet
+                for (Entry internalEntry : Entries) {
+                    //if entry with "name" already exists, increase its amount
+                    if(internalEntry.getName().equals(externalEntry.getName())) {
+                        Log.d("entry", internalEntry.toString());
+                        internalEntry.setAmount(
+                                internalEntry.getAmount() + externalEntry.getAmount()
+                        );
+                        Log.d("entry", internalEntry.toString());
+                    } else {
+                        Entries.add(externalEntry);
+                        Log.d("entry", externalEntry.toString());
+                    }
+                }
+            }
+//            if(ContextFragmentInventoryList.adapter != null) {
+//                ContextFragmentInventoryList.update();
+//            }
         }
     }
 }
