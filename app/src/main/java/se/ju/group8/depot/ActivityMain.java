@@ -128,9 +128,8 @@ public class ActivityMain extends AppCompatActivity
 
         //Don'tForget: replace test fragment with inventory list fragment
         //set the inventory list as the first displayed fragment after the app gets started
-//        fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
-        fragmentTransaction.replace(R.id.context_container, fragmentInventoryList,
-                "inventoryList");
+        fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
+//        fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
         fragmentTransaction.commitNow(); //commitNow to access the views instantly
 
     }
@@ -204,6 +203,15 @@ public class ActivityMain extends AppCompatActivity
                     user.getUid(), Toast.LENGTH_LONG)
                     .show();
             return true;
+        }
+
+        //open test fragment
+        if (id == R.id.menu_test_fragment) {
+            fragmentManager = ActivityMain.this.getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
+            fragmentTransaction.commitNow();
+          return true;
         }
 
         return super.onOptionsItemSelected(item);

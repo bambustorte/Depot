@@ -27,18 +27,9 @@ public class ContextFragmentTest extends Fragment {
         rootView.findViewById(R.id.testButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("test",
-                        FirebaseDatabase.getInstance().
-                                getReference(
-                                        "user/" + FirebaseAuth.getInstance()
-                                                .getCurrentUser().getUid()
-                                + "/1").child("YXC").toString());
+                Log.d("test", DataManager.getInstance().inventoryList.toArrayList().toString());
             }
         });
         return rootView;
     }
-    public void update(){
-
-    }
 }
-

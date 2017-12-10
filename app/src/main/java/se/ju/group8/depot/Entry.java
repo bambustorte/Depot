@@ -12,21 +12,17 @@ import java.util.Date;
  */
 
 class Entry {
-    public static final int
-            INVENTORY_LIST = 1,
-            WANTED_LIST = 2,
-            SHOPPING_LIST = 3;
 
     //properties of the entry
     //TODO: think of more properties and their data types
     private String name, barcode;
-    private int amount;
+    private long amount;
     private Date BestBefore, DateBought;
     private long id;
 
-    Entry(){};
+    Entry(){}
 
-    Entry(long id, int amount, String name, String barcode, Date DateBought) {
+    Entry(long id, long amount, String name, String barcode, Date DateBought) {
         this.id = id;
         this.amount = amount;
         this.name = name;
@@ -37,7 +33,7 @@ class Entry {
     @Override
     //TODO: make toString more beautiful
     public String toString(){
-        return "name: " + this.name + "/id: " + id + "/amount: " + amount;
+        return id + ": " + this.name + "x" + this.amount;
     }
 
 
@@ -75,12 +71,12 @@ class Entry {
         DateBought = dateBought;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public void setAmount(int type) {
-        this.amount = type;
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 
     public long getId() {

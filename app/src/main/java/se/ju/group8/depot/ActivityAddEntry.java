@@ -53,20 +53,24 @@ public class ActivityAddEntry extends AppCompatActivity {
         String dateString = date.getText().toString();
 
 
-        if(dateString.isEmpty()){
-            if(barcodeString.isEmpty()){
-                if (amountString.isEmpty()){
-                    DataManager.getInstance().add(category, nameString);
-                } else {
-                    DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString));
-                }
-            } else {
-                DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString);
-            }
-        } else {
-            DataManager.getInstance().add(category, nameString,
-                    Integer.valueOf(amountString), barcodeString, new Date());
+        if (amountString.isEmpty()){
+            DataManager.getInstance().add(category, nameString);
+            finish();
+            Log.d("log", "addentry: added");
+            return;
         }
+
+        if(barcodeString.isEmpty()){
+            DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString));
+            finish();
+            Log.d("log", "addentry: added");
+            return;
+        }
+
+        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString);
+
+//        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString, new Date());
+
         Log.d("log", "addentry: added");
         finish();
     }
