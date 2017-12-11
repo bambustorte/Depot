@@ -8,12 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ContextFragmentShoppingList extends Fragment {
 
-    static ArrayAdapter<Entry> adapter;
+    static AdapterEntryList adapter;
 
     @Nullable
     @Override
@@ -22,24 +23,27 @@ public class ContextFragmentShoppingList extends Fragment {
 
         ListView listView = (ListView) rootView.findViewById(R.id.ShoppingList);
 
-        adapter = new ArrayAdapter<>(rootView.getContext(),
-                android.R.layout.simple_list_item_1,
-                DataManager.getInstance().shoppingList.toArrayList());
+        adapter = new AdapterEntryList(rootView.getContext(),
+                DataManager.getInstance().shoppingList.toArrayList(),
+                3
+        );
+
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // TODO: show more information onClick, maybe delete option
-//                Log.println(Log.DEBUG, "entry", DataManager.shoppingListEntries.get(position).toString());
+                Log.println(Log.DEBUG, "entry", adapter.getItem(position).toString());
             }
         });
 
         return rootView;
     }
-    static void update(){
-        adapter.clear();
-        adapter.addAll(DataManager.getInstance().shoppingList.toArrayList());
-        adapter.notifyDataSetChanged();
+
+    static void update(ArrayList<Entry> entries) {
+        if (adapter != null) {
+            adapter.update(entries);
+        }
     }
 }
 

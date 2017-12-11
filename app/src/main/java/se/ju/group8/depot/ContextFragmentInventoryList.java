@@ -8,12 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ContextFragmentInventoryList extends Fragment {
 
-    static ArrayAdapter<String> adapter;
+    static AdapterEntryList adapter;
 
     @Nullable
     @Override
@@ -22,69 +23,26 @@ public class ContextFragmentInventoryList extends Fragment {
 
         ListView listView = (ListView) rootView.findViewById(R.id.InventoryList);
 
-        adapter = new ArrayAdapter<>(rootView.getContext(),
-                android.R.layout.simple_list_item_1,
-                DataManager.getInstance().inventoryList.toStringArrayList());
+        adapter = new AdapterEntryList(rootView.getContext(),
+                DataManager.getInstance().inventoryList.toArrayList(),
+                1
+                );
 
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // TODO: show more information onClick, maybe delete option
-//                Log.println(Log.DEBUG, "entry", DataManager.getInstance().get(position).toString());
+                Log.println(Log.DEBUG, "entry", adapter.getItem(position).toString());
             }
         });
-
-
-//
-//        final ArrayAdapter adapter = new ArrayAdapter<DataManager.Entry>(
-//                this,
-//                android.R.layout.simple_list_item_1,
-//                DataManager.inventoryEntries
-//        );
-//
-//        listView.setAdapter(adapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-//                DataManager.Entry clickedEntry = DataManager.inventoryEntries.get(position);
-////                if (getIntent().getIntExtra("action", 0) == 0) {
-////                    Intent intent = new Intent(PickTodoActivity.this, ViewTodoActivity.class);
-////                    intent.putExtra("todoIndex", position);
-////                    startActivity(intent);
-////                } else {
-////                    new AlertDialog.Builder(PickTodoActivity.this).setTitle("Delete ToDo")
-////                            .setMessage("really wanna delete it?")
-////                            .setPositiveButton(
-////                                    android.R.string.yes, new DialogInterface.OnClickListener() {
-////                                        public void onClick(DialogInterface dialog, int wichButton) {
-////                                            DataManager.inventoryEntries.remove(position);
-//////                                            finish();
-//////                                            listView.invalidate();
-//////                                            View v = findViewById(R.id.linlay);
-//////                                            v.invalidate();
-////                                        }
-////                                    }).setNegativeButton(
-////                            android.R.string.no, new DialogInterface.OnClickListener() {
-////                                public void onClick(DialogInterface dialog, int whichButton) {
-////
-////                                }
-////                            }
-////                    ).show();
-////                }
-////                ad.notifyDataSetChanged();
-//
-//            }
-//        });
 
         return rootView;
     }
 
-    static void update() {
+    static void update(ArrayList<Entry> entries) {
         if (adapter != null) {
-            adapter.clear();
-            adapter.addAll(DataManager.getInstance().inventoryList.toStringArrayList());
-            adapter.notifyDataSetChanged();
+            adapter.update(entries);
         }
     }
 }

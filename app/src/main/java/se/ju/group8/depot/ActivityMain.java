@@ -143,13 +143,13 @@ public class ActivityMain extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         if(ContextFragmentInventoryList.adapter != null) {
-            ContextFragmentInventoryList.update();
+            ContextFragmentInventoryList.update(DataManager.getInstance().inventoryList.Entries);
         }
         if(ContextFragmentWantedItemsList.adapter != null) {
-            ContextFragmentWantedItemsList.update();
+            ContextFragmentWantedItemsList.update(DataManager.getInstance().wantedList.Entries);
         }
         if(ContextFragmentShoppingList.adapter != null) {
-            ContextFragmentShoppingList.update();
+            ContextFragmentShoppingList.update(DataManager.getInstance().shoppingList.Entries);
         }
 
         Log.d("files", getFilesDir().toString());

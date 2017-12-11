@@ -37,4 +37,5 @@
     <string name="login_username">Username</string>
     <string name="login_password">Password</string>
     <string name="login_register2">Back to sign in</string>
+    <string name="list_view_entry_remove">remove</string>
 </resources>
