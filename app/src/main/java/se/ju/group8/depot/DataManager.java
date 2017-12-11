@@ -113,7 +113,8 @@ class DataManager {
 
                 Entry internalEntry;
 
-                Log.d("log", "update: " + list.Entries.toString());
+                Log.d("log", "update internal list: " + list.Entries.toString());
+                Log.d("log", "update external list: " + dataSnapshot.toString());
 
                 for ( int i = 0; i < list.Entries.size(); i++ ) {
                     internalEntry = list.Entries.get(i);
@@ -128,6 +129,10 @@ class DataManager {
                 if(!updated){
                     Entry toAdd = dataSnapshot.getValue(Entry.class);
                     list.Entries.add(toAdd);
+                }
+
+                if(ContextFragmentInventoryList.adapter != null) {
+                    ContextFragmentInventoryList.update();
                 }
             }
 
@@ -208,7 +213,7 @@ class DataManager {
         if(list == EntryList.SHOPPING_LIST)
             listToAdd = shoppingList;
 
-        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, DateBought);
+        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, null); //FIXME: change null to DateBought after testing is done
 
         // Write a message to the database
         myRef = userData.child(Integer.toString(list)).child(name);
@@ -261,14 +266,6 @@ class DataManager {
 //                Log.d("test", Entries.toString());
 ////                Log.d("test", "ich bin liste " + this.type);
 //
-//
-//
-//
-//
-//
-//
-//
-//
 //                //check for all internal entries, if external entry exists yet
 //                Entry internalEntry;
 //                for (int j = 0; j < Entries.size(); j++) {
@@ -293,5 +290,16 @@ class DataManager {
 //                ContextFragmentInventoryList.update();
 //            }
 //        }
+
+        ArrayList<String> toStringArrayList(){
+            ArrayList<String> ret = new ArrayList<>();
+
+            for (Entry e :
+                    Entries) {
+                ret.add(e.toString());
+            }
+
+            return ret;
+        }
     }
 }

@@ -29,6 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    static {
+        //enable firebase offline capabilities
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+    }
+
     //this is the data manager
     DataManager dataManager;
 
@@ -52,8 +58,7 @@ public class ActivityMain extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //enable firebase offline capabilities
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -85,7 +90,7 @@ public class ActivityMain extends AppCompatActivity
                         .setNegativeButton(
                                 R.string.dialog_manually, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
-                                        Intent intent = new Intent(ActivityMain.this, ActivityAddEntry.class);
+                                        Intent intent = new Intent(ActivityMain.this.getApplicationContext(), ActivityAddEntry.class);
                                         intent.putExtra("openTab", openTab);
                                         startActivity(intent);
                                     }
