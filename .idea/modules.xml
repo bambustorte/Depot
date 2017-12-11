@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Depot.iml" filepath="$PROJECT_DIR$/.idea/Depot.iml" />
-      <module fileurl="file://C:\Users\username\StudioProjects\Depot\Depot.iml" filepath="C:\Users\username\StudioProjects\Depot\Depot.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\username\StudioProjects\Depot\app\app.iml" filepath="C:\Users\username\StudioProjects\Depot\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/depot.iml" filepath="$PROJECT_DIR$/depot.iml" />
     </modules>
   </component>
 </project>
