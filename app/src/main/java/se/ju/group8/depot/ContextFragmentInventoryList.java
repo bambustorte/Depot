@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 public class ContextFragmentInventoryList extends Fragment {
 
-    static ArrayAdapter<Entry> adapter;
+    static ArrayAdapter<String> adapter;
 
     @Nullable
     @Override
@@ -24,7 +24,7 @@ public class ContextFragmentInventoryList extends Fragment {
 
         adapter = new ArrayAdapter<>(rootView.getContext(),
                 android.R.layout.simple_list_item_1,
-                DataManager.getInstance().inventoryList.toArrayList());
+                DataManager.getInstance().inventoryList.toStringArrayList());
 
         listView.setAdapter(adapter);
 
@@ -80,10 +80,12 @@ public class ContextFragmentInventoryList extends Fragment {
         return rootView;
     }
 
-    static void update(){
-        adapter.clear();
-        adapter.addAll(DataManager.getInstance().inventoryList.toArrayList());
-        adapter.notifyDataSetChanged();
+    static void update() {
+        if (adapter != null) {
+            adapter.clear();
+            adapter.addAll(DataManager.getInstance().inventoryList.toStringArrayList());
+            adapter.notifyDataSetChanged();
+        }
     }
 }
 

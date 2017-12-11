@@ -13,7 +13,8 @@ public class Todos {
 
     //TODO: show auth process
 
-    //TODO: fix crash enablePersistence must be called first
+    //FIXME: fix crash enablePersistence must be called first
+    //might be fixed now
 
     //TODO: change the color theme of the app
 
