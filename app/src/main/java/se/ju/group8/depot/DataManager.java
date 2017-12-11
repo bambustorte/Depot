@@ -215,7 +215,7 @@ class DataManager {
         if(list == EntryList.SHOPPING_LIST)
             listToAdd = shoppingList;
 
-        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, null); //FIXME: change null to DateBought after testing is done
+        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, DateBought);
 
         // Write a message to the database
         myRef = userData.child(Integer.toString(list)).child(name);

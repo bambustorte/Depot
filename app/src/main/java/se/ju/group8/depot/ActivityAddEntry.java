@@ -6,13 +6,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author max
@@ -59,6 +62,11 @@ public class ActivityAddEntry extends AppCompatActivity {
         TextView barcode = (TextView) findViewById(R.id.addBarcode);
         TextView date = (TextView) findViewById(R.id.addDate);
 
+        EditText dateMM = (EditText) findViewById(R.id.addDateMonth);
+        EditText dateDD = (EditText) findViewById(R.id.addDateDay);
+        EditText dateYY = (EditText) findViewById(R.id.addDateYear);
+        //TODO: finish data structure for date
+
         int category = 1;
 
 //        if(openTab == 2){
@@ -79,22 +87,36 @@ public class ActivityAddEntry extends AppCompatActivity {
 
         if (amountString.isEmpty()){
             DataManager.getInstance().add(category, nameString);
-            finish();
             Log.d("log", "addentry: added");
+            finish();
             return;
         }
 
         if(barcodeString.isEmpty()){
             DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString));
-            finish();
             Log.d("log", "addentry: added");
+            finish();
             return;
         }
 
-        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString);
+        if (dateString.isEmpty()) {
+            DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString);
+            Log.d("log", "addentry: added");
+            finish();
+            return;
+        }
 
-//        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString, new Date());
 
+        DateFormat format = new SimpleDateFormat("EEE, MMM d, ''yy", Locale.ENGLISH);
+        Date date1 = new Date();
+        try {
+            date1 = format.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString, date1);
         Log.d("log", "addentry: added");
         finish();
     }

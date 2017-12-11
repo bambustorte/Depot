@@ -289,6 +289,7 @@ public class ActivityMain extends AppCompatActivity
 
         String BAR = data.getStringExtra("barcode");
         Intent intent = new Intent(getApplicationContext(),ActivityAddEntry.class);
+        intent.putExtra("openTab", getOpenTab());
         intent.putExtra("Barcode",BAR);
 
         startActivity(intent);
