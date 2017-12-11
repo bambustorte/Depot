@@ -1,5 +1,7 @@
 package se.ju.group8.depot;
 
+import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.content.DialogInterface;
@@ -94,8 +96,24 @@ public class ActivityMain extends AppCompatActivity
                         R.string.dialog_camera, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int witchButton) {
 //                                DataManager.inventoryEntries.remove(position);
+
+                                Intent myIntent = new Intent();
+                                myIntent.setClassName("info.androidhive.barcodereader", "info.androidhive.barcodereader.MainActivity");
+                                startActivityForResult(myIntent, 123);
                                 //TODO: add items to inventory, maybe make it dependent on which fragment is displayed
                                 //TODO: e.g. add an item to the wanted list when this fragment is displayed
+
+
+
+                                Context context = getApplicationContext();
+                                CharSequence text = ("Searching for Barcode...");
+                                int duration = Toast.LENGTH_LONG;
+
+                                Toast toast = Toast.makeText(context, text, duration);
+                                toast.show();
+
+
+
                             }
                         }
                 ).show();
@@ -258,6 +276,18 @@ public class ActivityMain extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String BAR = data.getStringExtra("barcode");
+        Intent intent = new Intent(getApplicationContext(),ActivityAddEntry.class);
+        intent.putExtra("Barcode",BAR);
+
+        startActivity(intent);
+
     }
 
     public int getOpenTab() {

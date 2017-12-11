@@ -8,6 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import java.util.Date;
 
 /**
@@ -19,6 +23,9 @@ public class ActivityAddEntry extends AppCompatActivity {
 
     int openTab;
 
+    String BarcodeResult;
+
+
     public ActivityAddEntry(){}
 
     @Override
@@ -27,7 +34,24 @@ public class ActivityAddEntry extends AppCompatActivity {
         setContentView(R.layout.activity_add_entry);
         Intent intent = getIntent();
         openTab = intent.getIntExtra("openTab", 1);
+        BarcodeResult = intent.getStringExtra("Barcode");
+
+        if (BarcodeResult != null) {
+            TextView textView = (TextView) findViewById(R.id.addBarcode);
+            textView.setText(BarcodeResult);
+
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
+            String strDate = sdf.format(c.getTime());
+            TextView textView1 = (TextView) findViewById(R.id.addDate);
+            textView1.setText(strDate);
+        }
+
+
+
     }
+
+
 
     public void onAddClick(View view){
         TextView name = (TextView) findViewById(R.id.addName);
