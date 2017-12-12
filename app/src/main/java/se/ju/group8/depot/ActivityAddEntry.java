@@ -88,18 +88,43 @@ public class ActivityAddEntry extends AppCompatActivity {
         }
 
         String nameString = name.getText().toString();
-        String amountString = (amount.getText().toString().isEmpty()) ? "1" : amount.getText().toString();
-        String barcodeString = (barcode.getText().toString().isEmpty()) ? "" : barcode.getText().toString();
-
-        int dateMMInt = (dateMM.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateMM.getText().toString());
-        int dateDDInt = (dateDD.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateDD.getText().toString());
-        int dateYYInt = (dateYY.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateYY.getText().toString());
+        String amountString = amount.getText().toString();
+        String barcodeString = barcode.getText().toString();
+        String dateString = date.getText().toString();
 
 
-        if (nameString.isEmpty())
+        if (amountString.isEmpty()){
+            DataManager.getInstance().add(category, nameString);
+            Log.d("log", "addentry: added");
+            finish();
             return;
+        }
 
-        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString, dateMMInt, dateDDInt, dateYYInt);
+        if(barcodeString.isEmpty()){
+            DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString));
+            Log.d("log", "addentry: added");
+            finish();
+            return;
+        }
+
+        if (dateString.isEmpty()) {
+            DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString);
+            Log.d("log", "addentry: added");
+            finish();
+            return;
+        }
+
+
+        DateFormat format = new SimpleDateFormat("EEE, MMM d, ''yy", Locale.ENGLISH);
+        Date date1 = new Date();
+        try {
+            date1 = format.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString, date1);
         Log.d("log", "addentry: added");
         finish();
     }
