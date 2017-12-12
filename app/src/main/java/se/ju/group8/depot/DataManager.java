@@ -194,7 +194,7 @@ class DataManager {
         instance = null;
     }
 
-    void add(int list, String name, int amount, String barcode, int MM, int DD, int YY){
+    void add(int list, String name, int amount, String barcode, int MM, int DD, int YYYY){
         //assume the list is 1
         EntryList listToAdd = inventoryList;
 
@@ -203,7 +203,7 @@ class DataManager {
         if(list == EntryList.SHOPPING_LIST)
             listToAdd = shoppingList;
 
-        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, new MyDate(MM, DD, YY));
+        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, new MyDate(MM, DD, YYYY));
 
         // Write a message to the database
         myRef = userData.child(Integer.toString(list)).child(name);

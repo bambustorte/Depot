@@ -8,24 +8,24 @@ package se.ju.group8.depot;
 
 
 public class MyDate{
-    private int YY;
+    private int YYYY;
     private int MM;
     private int DD;
 
     MyDate(){}
 
-    MyDate(int MM, int DD, int YY){
+    MyDate(int MM, int DD, int YYYY){
         this.MM = MM;
         this.DD = DD;
-        this.YY = YY;
+        this.YYYY = YYYY;
     }
 
     public int getYY() {
-        return YY;
+        return YYYY;
     }
 
-    public void setYY(int YY) {
-        this.YY = YY;
+    public void setYY(int YYYY) {
+        this.YYYY = YYYY;
     }
 
     public int getMM() {
