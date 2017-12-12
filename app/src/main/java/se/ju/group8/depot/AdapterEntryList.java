@@ -1,6 +1,7 @@
 package se.ju.group8.depot;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
  * Created by hama17zp on 2017-12-11.
+ *
  */
 
 public class AdapterEntryList extends BaseAdapter{
@@ -45,7 +48,7 @@ public class AdapterEntryList extends BaseAdapter{
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
 
         LayoutInflater inflater = LayoutInflater.from(this.context.getApplicationContext());
         View customView = convertView;
@@ -58,11 +61,10 @@ public class AdapterEntryList extends BaseAdapter{
         final TextView textView1 = (TextView) customView.findViewById(R.id.list_view_entry_text1);
         TextView textView2 = (TextView) customView.findViewById(R.id.list_view_entry_text2);
         Button buttonRemove = (Button) customView.findViewById(R.id.list_view_entry_remove);
-        final TextView textId = (TextView) customView.findViewById(R.id.list_view_entry_id);
+        LinearLayout linearLayout = (LinearLayout) customView.findViewById(R.id.list_view_row);
 
         textView1.setText(entry.getName());
         textView2.setText(String.valueOf(entry.getAmount()));
-        textId.setText(String.valueOf(entry.getId()));
 
 
         buttonRemove.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +73,17 @@ public class AdapterEntryList extends BaseAdapter{
                 DataManager.getInstance().removeEntry(listNumber, textView1.getText().toString());
             }
         });
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(parent.getContext().getApplicationContext(), ActivityEntryInfo.class);
+                intent.putExtra("nameOfEntry", textView1.getText().toString());
+                intent.putExtra("numberOfList", listNumber);
+                parent.getContext().startActivity(intent);
+            }
+        });
+
 
         return customView;
     }

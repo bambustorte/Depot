@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -68,12 +69,12 @@ public class ActivityAddEntry extends AppCompatActivity {
         TextView name = (TextView) findViewById(R.id.addName);
         TextView amount = (TextView) findViewById(R.id.addAmount);
         TextView barcode = (TextView) findViewById(R.id.addBarcode);
-        TextView date = (TextView) findViewById(R.id.addDate);
+        Spinner spinner = (Spinner) findViewById(R.id.addUnit);
 
         EditText dateMM = (EditText) findViewById(R.id.addDateMonth);
         EditText dateDD = (EditText) findViewById(R.id.addDateDay);
         EditText dateYY = (EditText) findViewById(R.id.addDateYear);
-        //TODO: finish data structure for date
+        //TODOne: finish data structure for date
 
         int category = 1;
 
@@ -91,6 +92,8 @@ public class ActivityAddEntry extends AppCompatActivity {
         String amountString = (amount.getText().toString().isEmpty()) ? "1" : amount.getText().toString();
         String barcodeString = (barcode.getText().toString().isEmpty()) ? "" : barcode.getText().toString();
 
+        int type = 0;
+
         int dateMMInt = (dateMM.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateMM.getText().toString());
         int dateDDInt = (dateDD.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateDD.getText().toString());
         int dateYYInt = (dateYY.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateYY.getText().toString());
@@ -99,7 +102,7 @@ public class ActivityAddEntry extends AppCompatActivity {
         if (nameString.isEmpty())
             return;
 
-        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString, dateMMInt, dateDDInt, dateYYInt);
+        DataManager.getInstance().add(category, nameString, Long.valueOf(amountString), barcodeString, dateMMInt, dateDDInt, dateYYInt, type);
         Log.d("log", "addentry: added");
         finish();
     }

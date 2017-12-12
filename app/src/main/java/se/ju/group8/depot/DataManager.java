@@ -1,6 +1,8 @@
 package se.ju.group8.depot;
 
+import android.support.annotation.UiThread;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -13,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @author max
@@ -21,14 +24,8 @@ import java.util.Date;
 
 class DataManager {
 
-    //referred to as [list]1
-//    static ArrayList<String> inventoryEntries = new ArrayList<>();
     EntryList inventoryList;
-    //referred to as [list]2
-//    static ArrayList<String> wantedEntries = new ArrayList<>();
     EntryList wantedList;
-    //referred to as [list]3
-//    static ArrayList<String> shoppingListEntries = new ArrayList<>();
     EntryList shoppingList;
 
     private FirebaseUser user;
@@ -91,16 +88,30 @@ class DataManager {
 
                     Entry internalEntry;
 
-                    Log.d("log", "update internal list: " + list.Entries.toString());
-                    Log.d("log", "update external list: " + dataSnapshot.toString());
+//                    Log.d("log", "update internal list: " + list.Entries.toString());
+//                    Log.d("log", "update external list: " + dataSnapshot.toString());
 
                     for (int i = 0; i < list.Entries.size(); i++) {
                         internalEntry = list.Entries.get(i);
 
                         if (internalEntry.getName().equals(dataSnapshot.getKey())) {
+
                             internalEntry.setAmount(
-                                    internalEntry.getAmount() + (long) dataSnapshot.child("amount").getValue()
+                                    (Long) dataSnapshot.child("amount").getValue()
                             );
+
+                            internalEntry.setBarcode(
+                                    (String) dataSnapshot.child("barcode").getValue()
+                            );
+
+                            internalEntry.setDateBought(
+                                    dataSnapshot.child("dateBought").getValue(MyDate.class)
+                            );
+
+                            internalEntry.setType(
+                                    (int) (long) dataSnapshot.child("type").getValue()
+                            );
+
                             updated = true;
                         }
                     }
@@ -176,26 +187,29 @@ class DataManager {
     }
 
     //this code gets executed no matter what
-    static {
-//        Log.d("call", "datamanager static");
-//
-//        getInstance().add(1, "Spaghetti", 500);
-//        getInstance().add(1, "Tomato Sauce", 500, "124323324");
-//        getInstance().add(1, "Tomato Sauce2", 200);
-//        getInstance().add(1, "Onions", 3);
-//
-//        getInstance().add(2, "Spaghetti", 100);
-//        getInstance().add(2, "Tomato Sauce", 1000);
-//
-//        getInstance().add(3, "Tomato Sauce", 500);
-    }
+//    static {}
 
     static void dropInstance(){
         instance = null;
     }
 
-    void add(int list, String name, int amount, String barcode, int MM, int DD, int YYYY){
-        //assume the list is 1
+    EntryList numberToList(int list){
+        EntryList entryList = inventoryList;
+
+        if (list == EntryList.WANTED_LIST)
+            entryList = wantedList;
+
+        if (list == EntryList.SHOPPING_LIST)
+            entryList = shoppingList;
+
+        return entryList;
+    }
+
+    void add(int list, String name, Long amount, String barcode, int MM, int DD, int YYYY) {
+        add(list, name, amount, barcode, MM, DD, YYYY, 0);
+    }
+
+    void add(int list, String name, Long amount, String barcode, int MM, int DD, int YYYY, int type) {
         EntryList listToAdd = inventoryList;
 
         if(list == EntryList.WANTED_LIST)
@@ -203,32 +217,61 @@ class DataManager {
         if(list == EntryList.SHOPPING_LIST)
             listToAdd = shoppingList;
 
-        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, new MyDate(MM, DD, YYYY));
+
+        final Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, new MyDate(MM, DD, YYYY), type);
+
+        add(list, entryToAdd);
+    }
+    void add(int list, final Entry entryToAdd){
 
         // Write a message to the database
-        myRef = userData.child(Integer.toString(list)).child(name);
-        myRef.setValue(entryToAdd);
+        myRef = userData.child(Integer.toString(list)).child(entryToAdd.getName());//FIXME: name gets changed internally first
 
-        //TODO: change amount instead of overriding
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if ( dataSnapshot.exists() ) {
+
+                    myRef.child("amount").setValue(
+                            (Long) dataSnapshot.child("amount").getValue() - entryToAdd.getAmount()
+                    );
+
+                    myRef.child("barcode").setValue(entryToAdd.getBarcode());
+//                    myRef.child("name").setValue(entryToAdd.getName());
+                    myRef.child("type").setValue(entryToAdd.getType());
+                    myRef.child("dateBought").setValue(entryToAdd.getDateBought());
+
+                } else {
+                    myRef.setValue(entryToAdd);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("log", "datamanager add concancelled");
+            }
+        });
+
+        //TODOne: change amount instead of overriding
     }
 
+    void updateEntry(int list, Entry entry, Long amount, MyDate myDate, String barcode, String name, int type){
 
-//    void add(int list, String name, int amount, String barcode, Date DateBought){
-//        //assume the list is 1
-//        EntryList listToAdd = inventoryList;
-//
-//        if(list == EntryList.WANTED_LIST)
-//            listToAdd = wantedList;
-//        if(list == EntryList.SHOPPING_LIST)
-//            listToAdd = shoppingList;
-//
-//        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, DateBought);
-//
-//        // Write a message to the database
-//        myRef = userData.child(Integer.toString(list)).child(name);
-//        myRef.setValue(entryToAdd);
-//
-//    }
+        Entry entry1 = new Entry();
+
+        entry1.setName(entry.getName());
+        entry1.setDateBought(entry.getDateBought());
+        entry1.setId(0);
+
+        if(amount != null) entry1.setAmount(amount);
+        if(myDate != null) entry1.setDateBought(myDate);
+        if(barcode != null) entry1.setBarcode(barcode);
+//        if(name != null) entry1.setName(name);
+        if(type != -1) entry1.setType(type);
+
+        add(list, entry1);
+    }
 
     void removeEntry(int list, String nameOfEntry){
         // remove entry from the database
@@ -254,6 +297,24 @@ class DataManager {
 
         ArrayList<Entry> toArrayList(){
             return Entries;
+        }
+
+        Entry getEntryById(long id){
+            for (Entry e :
+                    Entries) {
+                if (e.getId() == id)
+                    return e;
+            }
+            return null;
+        }
+
+        Entry getEntryByName(String name){
+            for (Entry e :
+                    Entries) {
+                if (e.getName().equals(name))
+                    return e;
+            }
+            return null;
         }
 
     }

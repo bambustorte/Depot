@@ -30,13 +30,6 @@ public class ContextFragmentInventoryList extends Fragment {
 
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // TODO: show more information onClick, maybe delete option
-                Log.println(Log.DEBUG, "entry", adapter.getItem(position).toString());
-            }
-        });
-
         return rootView;
     }
 

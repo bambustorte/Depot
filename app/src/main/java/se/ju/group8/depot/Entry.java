@@ -13,22 +13,35 @@ import java.util.Date;
 
 class Entry {
 
+    //TODO: think about more units
+    static final int
+            UNIT_NONE = 0,
+            UNIT_GRAM = 1,
+            UNIT_KILOGRAM = 2,
+            UNIT_LITER = 3;
+
+    //TODO: extract string
+    static final String[] UNITS = {"", "gram", "kilo", "liter"};
+
+
     //properties of the entry
     //TODO: think of more properties and their data types
     private String name, barcode;
-    private long amount;
+    private Long amount;
     private MyDate DateBought;
     private Date BestBefore;
     private long id;
+    private int type;
 
     Entry(){}
 
-    Entry(long id, long amount, String name, String barcode, MyDate myDate) {
+    Entry(long id, long amount, String name, String barcode, MyDate myDate, int type) {
         this.id = id;
         this.amount = amount;
         this.name = name;
         this.barcode = barcode;
         this.DateBought = myDate;
+        this.type = type;
     }
 
     @Override
@@ -56,14 +69,6 @@ class Entry {
         this.barcode = barcode;
     }
 
-    public Date getBestBefore() {
-        return BestBefore;
-    }
-
-    public void setBestBefore(Date bestBefore) {
-        BestBefore = bestBefore;
-    }
-
     public MyDate getDateBought() {
         return DateBought;
     }
@@ -72,11 +77,11 @@ class Entry {
         DateBought = dateBought;
     }
 
-    public long getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 
@@ -86,5 +91,13 @@ class Entry {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

@@ -13,12 +13,13 @@ public class Todos {
 
     //TODO: show auth process
 
-    //FIXME: fix crash enablePersistence must be called first
-    //might be fixed now
+    //TODOne: fix crash enablePersistence must be called first
 
     //TODO: change the color theme of the app
 
-    //TODO: save added entries to the internal storage
+    //TODOne: save added entries to the internal storage
+
+    //TODOne: fix update entries
 
     //IDEA: export shopping list as a .txt file to the external storage
 

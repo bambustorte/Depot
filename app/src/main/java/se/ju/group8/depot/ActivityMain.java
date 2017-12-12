@@ -105,8 +105,8 @@ public class ActivityMain extends AppCompatActivity
                                 Intent myIntent = new Intent();
                                 myIntent.setClassName("info.androidhive.barcodereader", "info.androidhive.barcodereader.MainActivity");
                                 startActivityForResult(myIntent, 123);
-                                //TODO: add items to inventory, maybe make it dependent on which fragment is displayed
-                                //TODO: e.g. add an item to the wanted list when this fragment is displayed
+                                //TODOne: add items to inventory, maybe make it dependent on which fragment is displayed
+                                //TODOne: e.g. add an item to the wanted list when this fragment is displayed
 
 
 
@@ -210,7 +210,7 @@ public class ActivityMain extends AppCompatActivity
         //sign out option
         if (id == R.id.menu_sign_out) {
             FirebaseAuth.getInstance().signOut();
-            //TODO: finish()?
+            //TODOne: finish()?
             DataManager.dropInstance();
             finish();
             startActivity(new Intent(ActivityMain.this.getApplicationContext(), ActivityMain.class));
@@ -239,28 +239,15 @@ public class ActivityMain extends AppCompatActivity
 
         //populate list
         if (id == R.id.menu_populate) {
-            try {
-                int interval = 1;
-                DataManager.getInstance().add(1, "Spaghetti", 500, "", -1, -1, -1);
-                Thread.currentThread().sleep(interval);
-                DataManager.getInstance().add(1, "Tomato Sauce", 500, "124323324", -1, -1, -1);
-                Thread.currentThread().sleep(interval);
-                DataManager.getInstance().add(1, "Tomato Sauce2", 200, "", -1, -1, -1);
-                Thread.currentThread().sleep(interval);
-                DataManager.getInstance().add(1, "Onions", 3, "", -1, -1, -1);
-                Thread.currentThread().sleep(interval);
+            DataManager.getInstance().add(1, "Spaghetti", 500L, "", -1, -1, -1, 0);
+            DataManager.getInstance().add(1, "Tomato Sauce", 500L, "124323324", -1, -1, -1, 0);
+            DataManager.getInstance().add(1, "Tomato Sauce2", 200L, "", 2, 15, 2016, Entry.UNIT_LITER);
+            DataManager.getInstance().add(1, "Onions", 3L, "", -1, -1, -1,0);
 
-                DataManager.getInstance().add(2, "Spaghetti", 100, "", -1, -1, -1);
-                Thread.currentThread().sleep(interval);
-                DataManager.getInstance().add(2, "Tomato Sauce", 1000, "", -1, -1, -1);
-                Thread.currentThread().sleep(interval);
+            DataManager.getInstance().add(2, "Spaghetti", 100l, "", -1, -1, -1);
+            DataManager.getInstance().add(2, "Tomato Sauce", 1000l, "", -1, -1, -1);
 
-                DataManager.getInstance().add(3, "Tomato Sauce", 500, "", -1, -1, -1);
-                Thread.currentThread().sleep(interval);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
+            DataManager.getInstance().add(3, "Tomato Sauce", 500l, "", -1, -1, -1);
 
             return true;
         }
