@@ -18,5 +18,5 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_show_user"
-        android:title="Show current user" />
+        android:title="@string/menu_show_current_user" />
 </menu>

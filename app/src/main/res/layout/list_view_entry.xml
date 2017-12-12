@@ -31,10 +31,4 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/list_view_entry_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
 </LinearLayout>
