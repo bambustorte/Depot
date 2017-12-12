@@ -151,8 +151,8 @@ public class ActivityMain extends AppCompatActivity
 
         //Don'tForget: replace test fragment with inventory list fragment
         //set the inventory list as the first displayed fragment after the app gets started
-        fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
-//        fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
+//        fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
+        fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
         fragmentTransaction.commitNow(); //commitNow to access the views instantly
 
     }
@@ -235,6 +235,34 @@ public class ActivityMain extends AppCompatActivity
             fragmentTransaction.replace(R.id.context_container, fragmentTest, "test");
             fragmentTransaction.commitNow();
           return true;
+        }
+
+        //populate list
+        if (id == R.id.menu_populate) {
+            try {
+                int interval = 1;
+                DataManager.getInstance().add(1, "Spaghetti", 500, "", -1, -1, -1);
+                Thread.currentThread().sleep(interval);
+                DataManager.getInstance().add(1, "Tomato Sauce", 500, "124323324", -1, -1, -1);
+                Thread.currentThread().sleep(interval);
+                DataManager.getInstance().add(1, "Tomato Sauce2", 200, "", -1, -1, -1);
+                Thread.currentThread().sleep(interval);
+                DataManager.getInstance().add(1, "Onions", 3, "", -1, -1, -1);
+                Thread.currentThread().sleep(interval);
+
+                DataManager.getInstance().add(2, "Spaghetti", 100, "", -1, -1, -1);
+                Thread.currentThread().sleep(interval);
+                DataManager.getInstance().add(2, "Tomato Sauce", 1000, "", -1, -1, -1);
+                Thread.currentThread().sleep(interval);
+
+                DataManager.getInstance().add(3, "Tomato Sauce", 500, "", -1, -1, -1);
+                Thread.currentThread().sleep(interval);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

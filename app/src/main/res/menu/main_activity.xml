@@ -6,6 +6,9 @@
         android:orderInCategory="100"
         android:title="Sign out" />
     <item
+        android:id="@+id/menu_populate"
+        android:title="populate list" />
+    <item
         android:id="@+id/menu_test_fragment"
         android:title="testFragment" />
     <item

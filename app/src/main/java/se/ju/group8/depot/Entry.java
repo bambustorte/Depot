@@ -17,17 +17,18 @@ class Entry {
     //TODO: think of more properties and their data types
     private String name, barcode;
     private long amount;
-    private Date BestBefore, DateBought;
+    private MyDate DateBought;
+    private Date BestBefore;
     private long id;
 
     Entry(){}
 
-    Entry(long id, long amount, String name, String barcode, Date DateBought) {
+    Entry(long id, long amount, String name, String barcode, MyDate myDate) {
         this.id = id;
         this.amount = amount;
         this.name = name;
         this.barcode = barcode;
-        this.DateBought = DateBought;
+        this.DateBought = myDate;
     }
 
     @Override
@@ -63,11 +64,11 @@ class Entry {
         BestBefore = bestBefore;
     }
 
-    public Date getDateBought() {
+    public MyDate getDateBought() {
         return DateBought;
     }
 
-    public void setDateBought(Date dateBought) {
+    public void setDateBought(MyDate dateBought) {
         DateBought = dateBought;
     }
 

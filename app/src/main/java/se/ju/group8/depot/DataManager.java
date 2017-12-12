@@ -177,36 +177,24 @@ class DataManager {
 
     //this code gets executed no matter what
     static {
-        Log.d("call", "datamanager static");
-
-        getInstance().add(1, "Spaghetti", 500);
-        getInstance().add(1, "Tomato Sauce", 500, "124323324");
-        getInstance().add(1, "Tomato Sauce2", 200);
-        getInstance().add(1, "Onions", 3);
-
-        getInstance().add(2, "Spaghetti", 100);
-        getInstance().add(2, "Tomato Sauce", 1000);
-
-        getInstance().add(3, "Tomato Sauce", 500);
+//        Log.d("call", "datamanager static");
+//
+//        getInstance().add(1, "Spaghetti", 500);
+//        getInstance().add(1, "Tomato Sauce", 500, "124323324");
+//        getInstance().add(1, "Tomato Sauce2", 200);
+//        getInstance().add(1, "Onions", 3);
+//
+//        getInstance().add(2, "Spaghetti", 100);
+//        getInstance().add(2, "Tomato Sauce", 1000);
+//
+//        getInstance().add(3, "Tomato Sauce", 500);
     }
 
     static void dropInstance(){
         instance = null;
     }
 
-    void add(int list, String name){
-        add(list, name, 1);
-    }
-
-    void add(int list, String name, int value){
-        add(list, name, value, "");
-    }
-
-    void add(int list, String name, int value, String barcode){
-        add(list, name, value, barcode, new Date());
-    }
-
-    void add(int list, String name, int amount, String barcode, Date DateBought){
+    void add(int list, String name, int amount, String barcode, int MM, int DD, int YY){
         //assume the list is 1
         EntryList listToAdd = inventoryList;
 
@@ -215,7 +203,7 @@ class DataManager {
         if(list == EntryList.SHOPPING_LIST)
             listToAdd = shoppingList;
 
-        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, DateBought);
+        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, new MyDate(MM, DD, YY));
 
         // Write a message to the database
         myRef = userData.child(Integer.toString(list)).child(name);
@@ -223,6 +211,24 @@ class DataManager {
 
         //TODO: change amount instead of overriding
     }
+
+
+//    void add(int list, String name, int amount, String barcode, Date DateBought){
+//        //assume the list is 1
+//        EntryList listToAdd = inventoryList;
+//
+//        if(list == EntryList.WANTED_LIST)
+//            listToAdd = wantedList;
+//        if(list == EntryList.SHOPPING_LIST)
+//            listToAdd = shoppingList;
+//
+//        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, DateBought);
+//
+//        // Write a message to the database
+//        myRef = userData.child(Integer.toString(list)).child(name);
+//        myRef.setValue(entryToAdd);
+//
+//    }
 
     void removeEntry(int list, String nameOfEntry){
         // remove entry from the database

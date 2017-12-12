@@ -42,15 +42,23 @@ public class ActivityAddEntry extends AppCompatActivity {
         if (BarcodeResult != null) {
             TextView textView = (TextView) findViewById(R.id.addBarcode);
             textView.setText(BarcodeResult);
-
-            Calendar c = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
-            String strDate = sdf.format(c.getTime());
-            TextView textView1 = (TextView) findViewById(R.id.addDate);
-            textView1.setText(strDate);
         }
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
 
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        TextView textView1 = (TextView) findViewById(R.id.addDateMonth);
+        TextView textView2 = (TextView) findViewById(R.id.addDateDay);
+        TextView textView3 = (TextView) findViewById(R.id.addDateYear);
+
+
+        textView1.setText(String.valueOf(month));
+        textView2.setText(String.valueOf(day));
+        textView3.setText(String.valueOf(year));
 
     }
 
@@ -80,43 +88,18 @@ public class ActivityAddEntry extends AppCompatActivity {
         }
 
         String nameString = name.getText().toString();
-        String amountString = amount.getText().toString();
-        String barcodeString = barcode.getText().toString();
-        String dateString = date.getText().toString();
+        String amountString = (amount.getText().toString().isEmpty()) ? "1" : amount.getText().toString();
+        String barcodeString = (barcode.getText().toString().isEmpty()) ? "" : barcode.getText().toString();
+
+        int dateMMInt = (dateMM.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateMM.getText().toString());
+        int dateDDInt = (dateDD.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateDD.getText().toString());
+        int dateYYInt = (dateYY.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateYY.getText().toString());
 
 
-        if (amountString.isEmpty()){
-            DataManager.getInstance().add(category, nameString);
-            Log.d("log", "addentry: added");
-            finish();
+        if (nameString.isEmpty())
             return;
-        }
 
-        if(barcodeString.isEmpty()){
-            DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString));
-            Log.d("log", "addentry: added");
-            finish();
-            return;
-        }
-
-        if (dateString.isEmpty()) {
-            DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString);
-            Log.d("log", "addentry: added");
-            finish();
-            return;
-        }
-
-
-        DateFormat format = new SimpleDateFormat("EEE, MMM d, ''yy", Locale.ENGLISH);
-        Date date1 = new Date();
-        try {
-            date1 = format.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString, date1);
+        DataManager.getInstance().add(category, nameString, Integer.valueOf(amountString), barcodeString, dateMMInt, dateDDInt, dateYYInt);
         Log.d("log", "addentry: added");
         finish();
     }
