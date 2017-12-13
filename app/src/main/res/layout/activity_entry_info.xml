@@ -34,30 +34,15 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="amount old / new"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entry_info_name" />
-
-    <SeekBar
-        android:id="@+id/entry_info_seekbar"
-        style="@android:style/Widget.Material.SeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:max="10"
-        android:progress="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -70,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entry_info_seekbar">
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <EditText
             android:id="@+id/entry_info_amount"
@@ -84,7 +69,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="new amount" />
+
     </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/entry_info_seekbar"
+        style="@android:style/Widget.Material.SeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:max="10"
+        android:progress="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/textView5"
@@ -96,7 +97,7 @@
         android:text="change type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/entry_info_seekbar" />
 
     <Spinner
         android:id="@+id/spinner"
