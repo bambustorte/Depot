@@ -26,19 +26,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <EditText
             android:id="@+id/entry_info_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="amount of entry" />
+            android:enabled="false"
+            android:hint="amount of entry" />
 
-        <TextView
+        <EditText
             android:id="@+id/entry_info_new_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="new amount" />
+            android:hint="new amount" />
     </LinearLayout>
 
     <SeekBar

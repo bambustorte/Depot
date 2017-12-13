@@ -31,8 +31,8 @@ public class ActivityEntryInfo extends AppCompatActivity {
 
         final TextView textViewName = (TextView) findViewById(R.id.entry_info_name);
 
-        final TextView textViewAmount = (TextView) findViewById(R.id.entry_info_amount);
-        final TextView textViewNewAmount = (TextView) findViewById(R.id.entry_info_new_amount);
+        final EditText textViewAmount = (EditText) findViewById(R.id.entry_info_amount);
+        final EditText textViewNewAmount = (EditText) findViewById(R.id.entry_info_new_amount);
         SeekBar seekBar = (SeekBar) findViewById(R.id.entry_info_seekbar);
 
         final EditText editTextBarcode = (EditText) findViewById(R.id.entry_info_barcode);
