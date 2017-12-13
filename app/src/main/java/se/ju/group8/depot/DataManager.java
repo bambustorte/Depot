@@ -234,7 +234,7 @@ class DataManager {
                 if ( dataSnapshot.exists() ) {
 
                     myRef.child("amount").setValue(
-                            (Long) dataSnapshot.child("amount").getValue() - entryToAdd.getAmount()
+                            entryToAdd.getAmount() + (Long) dataSnapshot.child("amount").getValue()
                     );
 
                     myRef.child("barcode").setValue(entryToAdd.getBarcode());
@@ -264,7 +264,7 @@ class DataManager {
         entry1.setDateBought(entry.getDateBought());
         entry1.setId(0);
 
-        if(amount != null) entry1.setAmount(amount);
+        if(amount != null) entry1.setAmount(-amount);
         if(myDate != null) entry1.setDateBought(myDate);
         if(barcode != null) entry1.setBarcode(barcode);
 //        if(name != null) entry1.setName(name);
