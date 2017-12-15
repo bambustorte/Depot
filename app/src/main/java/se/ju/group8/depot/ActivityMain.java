@@ -199,14 +199,6 @@ public class ActivityMain extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_settings) {
-            //TODO: make and implement settings screen
-            Snackbar.make(findViewById(R.id.context_container), "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-            return true;
-        }
-
         //sign out option
         if (id == R.id.menu_sign_out) {
             FirebaseAuth.getInstance().signOut();
@@ -270,11 +262,6 @@ public class ActivityMain extends AppCompatActivity
             fragmentTransaction.replace(R.id.context_container, fragmentInventoryList, "inventoryList");
             fragmentTransaction.commitNow();
             openTab = 1;
-
-        } else if (id == R.id.nav_scan_item) {
-            //TODO: ask for permission and use camera or open camera app
-            Toast.makeText(this, "camera", Toast.LENGTH_LONG).show();
-            openTab = 2;
 
         } else if (id == R.id.nav_wanted_items_list) {
             fragmentManager = ActivityMain.this.getSupportFragmentManager();
