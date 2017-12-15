@@ -1,5 +1,6 @@
 package se.ju.group8.depot;
 
+import android.content.Intent;
 import android.support.annotation.UiThread;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * @author max
@@ -31,6 +33,7 @@ class DataManager {
     private FirebaseUser user;
 
     private FirebaseDatabase database;
+    DatabaseReference barcodes;
     private DatabaseReference userData;
     private DatabaseReference refToList1;
     private DatabaseReference refToList2;
@@ -49,6 +52,9 @@ class DataManager {
 
         //user root of database
         userData = database.getReference("user/" + user.getUid());
+
+        //root of all the barcodes
+        barcodes = database.getReference("barcodes/");
 
         //initiate all lists
         inventoryList = new EntryList(EntryList.INVENTORY_LIST);
@@ -318,4 +324,10 @@ class DataManager {
         }
 
     }
+
+    String addBarcode(String barcodeToAdd, String name){
+        barcodes.child(barcodeToAdd).setValue(name);
+        return barcodeToAdd;
+    }
+
 }
