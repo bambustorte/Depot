@@ -15,10 +15,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="69dp"
+        android:layout_height="73dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/dialog_frame" />
+        app:srcCompat="@mipmap/ic_launcher_foreground" />
 
     <TextView
         android:layout_width="match_parent"

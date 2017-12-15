@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -212,11 +213,8 @@ public class ActivityMain extends AppCompatActivity
 
         //display current user
         if (id == R.id.menu_show_user) {
-//            ContextFragmentTest cft = (ContextFragmentTest) fragmentTest;
-//            cft.update();
             Toast.makeText(ActivityMain.this.getApplicationContext(),
-                    user.getUid(), Toast.LENGTH_LONG)
-                    .show();
+                    user.getUid(), Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -231,15 +229,15 @@ public class ActivityMain extends AppCompatActivity
 
         //populate list
         if (id == R.id.menu_populate) {
-            DataManager.getInstance().add(1, "Spaghetti", 500L, "", -1, -1, -1, 0);
-            DataManager.getInstance().add(1, "Tomato Sauce", 500L, "124323324", -1, -1, -1, 0);
-            DataManager.getInstance().add(1, "Tomato Sauce2", 200L, "", 2, 15, 2016, Entry.UNIT_LITER);
-            DataManager.getInstance().add(1, "Onions", 3L, "", -1, -1, -1,0);
-
-            DataManager.getInstance().add(2, "Spaghetti", 100l, "", -1, -1, -1);
-            DataManager.getInstance().add(2, "Tomato Sauce", 1000l, "", -1, -1, -1);
-
-            DataManager.getInstance().add(3, "Tomato Sauce", 500l, "", -1, -1, -1);
+//            DataManager.getInstance().add(1, "Spaghetti", 500L, "", -1, -1, -1, 0);
+//            DataManager.getInstance().add(1, "Tomato Sauce", 500L, "124323324", -1, -1, -1, 0);
+//            DataManager.getInstance().add(1, "Tomato Sauce2", 200L, "", 2, 15, 2016, Entry.UNIT_LITER);
+//            DataManager.getInstance().add(1, "Onions", 3L, "", -1, -1, -1,0);
+//
+//            DataManager.getInstance().add(2, "Spaghetti", 100l, "", -1, -1, -1);
+//            DataManager.getInstance().add(2, "Tomato Sauce", 1000l, "", -1, -1, -1);
+//
+//            DataManager.getInstance().add(3, "Tomato Sauce", 500l, "dd", -1, -1, -1);
 
             return true;
         }
@@ -247,7 +245,6 @@ public class ActivityMain extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    //    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -289,13 +286,14 @@ public class ActivityMain extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        String BAR = data.getStringExtra("barcode");
-        Intent intent = new Intent(getApplicationContext(),ActivityAddEntry.class);
-        intent.putExtra("openTab", getOpenTab());
-        intent.putExtra("Barcode",BAR);
+        if(requestCode == 123) {
+            String BAR = data.getStringExtra("barcode");
+            Intent intent = new Intent(getApplicationContext(), ActivityAddEntry.class);
+            intent.putExtra("openTab", getOpenTab());
+            intent.putExtra("Barcode", BAR);
 
-        startActivity(intent);
-
+            startActivity(intent);
+        }
     }
 
     public int getOpenTab() {
