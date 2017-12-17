@@ -239,7 +239,7 @@ class DataManager {
 
                     myRef.child("barcode").setValue(entryToAdd.getBarcode());
 //                    myRef.child("name").setValue(entryToAdd.getName());
-                    myRef.child("type").setValue(entryToAdd.getType());
+                    myRef.child("type").setValue(entryToAdd.getType() == 0 ? dataSnapshot.child("type").getValue() : entryToAdd.getType());
                     myRef.child("dateBought").setValue(entryToAdd.getDateBought());
 
                 } else {
