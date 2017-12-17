@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,11 +26,12 @@ import java.util.Date;
  * @date 10/24/17.
  */
 
-public class ActivityAddEntry extends AppCompatActivity {
+public class ActivityAddEntry extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     int openTab;
 
     String BarcodeResult;
+    int type;
 
     TextView textViewMM;
     TextView textViewDD;
@@ -47,6 +51,7 @@ public class ActivityAddEntry extends AppCompatActivity {
         openTab = intent.getIntExtra("openTab", 1);
         BarcodeResult = intent.getStringExtra("Barcode");
 
+        type = 0;
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -62,6 +67,17 @@ public class ActivityAddEntry extends AppCompatActivity {
         textViewAmount = (TextView) findViewById(R.id.addAmount);
         textViewBarcode = (TextView) findViewById(R.id.addBarcode);
         spinner = (Spinner) findViewById(R.id.addUnit);
+
+
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
+                this.getApplicationContext(),
+                R.array.units_array,
+                android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+
+        Spinner spinner = (Spinner) findViewById(R.id.addUnit);
+        spinner.setOnItemSelectedListener(this);
 
 
         textViewMM.setText(String.valueOf(month));
@@ -122,8 +138,6 @@ public class ActivityAddEntry extends AppCompatActivity {
 
         Log.d("test", "barcode " + barcodeString);
 
-        int type = 0;
-
         int dateMMInt = (dateMM.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateMM.getText().toString());
         int dateDDInt = (dateDD.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateDD.getText().toString());
         int dateYYInt = (dateYY.getText().toString().isEmpty()) ? -1 : Integer.parseInt(dateYY.getText().toString());
@@ -141,4 +155,12 @@ public class ActivityAddEntry extends AppCompatActivity {
 
         finish();
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        type = position;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
 }

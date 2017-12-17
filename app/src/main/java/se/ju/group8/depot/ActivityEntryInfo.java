@@ -1,16 +1,28 @@
 package se.ju.group8.depot;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class ActivityEntryInfo extends AppCompatActivity {
+public class ActivityEntryInfo extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+
+    int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +48,20 @@ public class ActivityEntryInfo extends AppCompatActivity {
         SeekBar seekBar = (SeekBar) findViewById(R.id.entry_info_seekbar);
 
         final EditText editTextBarcode = (EditText) findViewById(R.id.entry_info_barcode);
+
+        type = 0;
+
+        Spinner unitSpinner = (Spinner) findViewById(R.id.entry_info_unitSpinner);
+
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
+                this.getApplicationContext(),
+                R.array.units_array,
+                android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        unitSpinner.setAdapter(spinnerAdapter);
+        unitSpinner.setOnItemSelectedListener(this);
+        unitSpinner.setSelection(entry.getType());
+
 
         final EditText editTextDateMM = (EditText) findViewById(R.id.entry_info_date_mm);
         final EditText editTextDateDD = (EditText) findViewById(R.id.entry_info_date_dd);
@@ -88,15 +114,43 @@ public class ActivityEntryInfo extends AppCompatActivity {
                                         ),
                                 editTextBarcode.getText().toString(),
                                 null,
-                                -1
+                                type
                         );
                 //TODO: allow user to verify
-                Log.d("test", textViewNewAmount.getText().toString());
-                Log.d("test", textViewAmount.getText().toString());
-                Log.d("test", String.valueOf(Long.parseLong(textViewNewAmount.getText().toString())
-                        - Long.parseLong(textViewAmount.getText().toString())));
                 finish();
+
+//                new android.support.v7.app.AlertDialog.Builder(ActivityEntryInfo.this.getApplicationContext())
+//                        .setTitle(R.string.entry_info_confirm)
+//                        .setMessage(R.string.entry_info_sure)
+//                        .setNegativeButton(
+//                            R.string.Yes, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int whichButton) {
+//                                    finish();
+//                                }
+//                            }
+//                        ).setPositiveButton(
+//                            R.string.No, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int witchButton) {
+//                                    //nothing
+//                                }
+//                            }
+//                    ).show();
+
+//                Log.d("test", textViewNewAmount.getText().toString());
+//                Log.d("test", textViewAmount.getText().toString());
+//                Log.d("test", String.valueOf(Long.parseLong(textViewNewAmount.getText().toString())
+//                        - Long.parseLong(textViewAmount.getText().toString())));
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        type = position;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        type = 0;
     }
 }

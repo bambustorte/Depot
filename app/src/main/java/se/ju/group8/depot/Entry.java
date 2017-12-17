@@ -21,7 +21,7 @@ class Entry {
             UNIT_LITER = 3;
 
     //TODO: extract string
-    static final String[] UNITS = {"", "gram", "kilo", "liter"};
+    static final String[] UNITS = {"", "G", "KG", "L"};
 
 
     //properties of the entry
