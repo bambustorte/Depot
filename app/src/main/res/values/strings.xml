@@ -18,12 +18,12 @@
     <string name="placeholder1" translatable="false">**This should display the item Name and how much of it is left**</string>
     <string name="dialog_camera">camera</string>
     <string name="dialog_how_to_add">How do you want to add the item?</string>
-    <string name="dialog_select_add_method">asdf</string>
+    <string name="dialog_select_add_method">Please select an action</string>
     <string name="dialog_manually">enter manually</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>

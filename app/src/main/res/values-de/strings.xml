@@ -26,5 +26,22 @@
         <item>Kilogramm</item>
         <item>Liter</item>
     </string-array>
+    <string name="dialog_how_to_add">Wie soll der Gegenstand hinzugefügt werden?</string>
+    <string name="dialog_select_add_method">Bitte eine Möglichkeit auswählen</string>
+    <string name="dialog_manually">Manuell eingeben</string>
+    <string name="title_activity_login">Anmelden</string>
+    <string name="prompt_password">Passwort (optional)</string>
+    <string name="error_invalid_email">E-Mail ist ungültig</string>
+    <string name="error_invalid_password">Passwort ist zu kurz</string>
+    <string name="error_incorrect_password">Passwort ist falsch</string>
+    <string name="error_field_required">Dieses Feld wird benötigt</string>
+    <string name="permission_rationale">Kontakte werden für die E-Mail benötigt[...]</string>
+    <string name="login_register2">Zurück zum anmelden</string>
+    <string name="list_view_entry_remove">Löschen</string>
+    <string name="menu_show_current_user">Benutzer anzeigen</string>
+    <string name="entry_info_confirm">Bestätigen</string>
+    <string name="entry_info_sure">Diesen Gegenstand aktualisieren?</string>
+    <string name="Yes">Ja</string>
+    <string name="No">Nein</string>
 
 </resources>
