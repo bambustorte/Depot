@@ -1,13 +1,10 @@
 package se.ju.group8.depot;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -110,16 +107,12 @@ public class ActivityMain extends AppCompatActivity
                                 //TODOne: e.g. add an item to the wanted list when this fragment is displayed
 
 
-
                                 Context context = getApplicationContext();
                                 CharSequence text = ("Searching for Barcode...");
                                 int duration = Toast.LENGTH_LONG;
 
                                 Toast toast = Toast.makeText(context, text, duration);
                                 toast.show();
-
-
-
                             }
                         }
                 ).show();

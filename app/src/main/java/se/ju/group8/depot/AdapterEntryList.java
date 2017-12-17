@@ -64,7 +64,7 @@ public class AdapterEntryList extends BaseAdapter{
         LinearLayout linearLayout = (LinearLayout) customView.findViewById(R.id.list_view_row);
 
         textView1.setText(entry.getName());
-        textView2.setText(String.valueOf(entry.getAmount()));
+        textView2.setText(String.valueOf(entry.getAmount()) + " " + Entry.UNITS[entry.getType()]);
 
 
         buttonRemove.setOnClickListener(new View.OnClickListener() {

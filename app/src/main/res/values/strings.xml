@@ -39,6 +39,10 @@
     <string name="login_register2">Back to sign in</string>
     <string name="list_view_entry_remove">remove</string>
     <string name="menu_show_current_user">Show current user</string>
+    <string name="entry_info_confirm">Confirm</string>
+    <string name="entry_info_sure">are you sure you want to update this entry?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
 
 
     <string-array name="units_array">
