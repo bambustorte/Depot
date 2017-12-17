@@ -39,4 +39,13 @@
     <string name="login_register2">Back to sign in</string>
     <string name="list_view_entry_remove">remove</string>
     <string name="menu_show_current_user">Show current user</string>
+
+
+    <string-array name="units_array">
+        <item>Pieces</item>
+        <item>Grams</item>
+        <item>Kilograms</item>
+        <item>Liters</item>
+    </string-array>
+
 </resources>

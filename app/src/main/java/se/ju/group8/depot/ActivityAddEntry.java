@@ -78,9 +78,9 @@ public class ActivityAddEntry extends AppCompatActivity {
                     DataSnapshot child;
                     for (Object o : iterable) {
                         child = (DataSnapshot) o;
-                        Log.d("test", "lala " + child.getValue().toString());
+//                        Log.d("test", "lala " + child.getValue().toString());
                         if(child.getKey().equals(BarcodeResult)){
-                            Log.d("test", "found it");
+//                            Log.d("test", "found it");
                             textViewName.setText(child.getValue().toString());
                             return;
                         }
@@ -94,7 +94,7 @@ public class ActivityAddEntry extends AppCompatActivity {
             });
         }
 
-        Log.d("test", "bar = " + BarcodeResult);
+//        Log.d("test", "bar = " + BarcodeResult);
 
     }
 
@@ -132,6 +132,13 @@ public class ActivityAddEntry extends AppCompatActivity {
 
         DataManager.getInstance().add(category, nameString, Long.valueOf(amountString), barcodeString, dateMMInt, dateDDInt, dateYYInt, type);
         Log.d("log", "addentry: added");
+
+        //TODO: the following function call doesn't work at all,
+        // the function itself should work fine, but it somehow breaks firebase
+        // and our other data structures. So we kept this code commented out, since
+        // we could not figure out what the problem is.
+//        DataManager.getInstance().updateShoppingList();
+
         finish();
     }
 }

@@ -19,4 +19,12 @@
     <string name="login_sign_in">Einloggen</string>
     <string name="login_username">Benutzername</string>
     <string name="login_password">Passwort</string>
+
+    <string-array name="units_array">
+        <item>Stück</item>
+        <item>Gramm</item>
+        <item>Kilogramm</item>
+        <item>Liter</item>
+    </string-array>
+
 </resources>

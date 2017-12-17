@@ -216,15 +216,9 @@ class DataManager {
     }
 
     void add(int list, String name, Long amount, String barcode, int MM, int DD, int YYYY, int type) {
-        EntryList listToAdd = inventoryList;
+        EntryList listToAdd = numberToList(list);
 
-        if(list == EntryList.WANTED_LIST)
-            listToAdd = wantedList;
-        if(list == EntryList.SHOPPING_LIST)
-            listToAdd = shoppingList;
-
-
-        final Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, new MyDate(MM, DD, YYYY), type);
+        Entry entryToAdd = new Entry(listToAdd.id, amount, name, barcode, new MyDate(MM, DD, YYYY), type);
 
         add(list, entryToAdd);
     }
@@ -255,7 +249,7 @@ class DataManager {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("log", "datamanager add concancelled");
+                Log.d("log", "data manager add on cancelled");
             }
         });
 
@@ -328,6 +322,58 @@ class DataManager {
     String addBarcode(String barcodeToAdd, String name){
         barcodes.child(barcodeToAdd).setValue(name);
         return barcodeToAdd;
+    }
+
+    int updateShoppingList(){
+    Log.d("test", "test");
+        for (Entry wantedEntry : wantedList.Entries) {
+            for (Entry invEntry : inventoryList.Entries) {
+                if (wantedEntry.getName().equals(invEntry.getName())) {
+                    Log.d("log", "update entry: found match");
+                    if(wantedEntry.getAmount() > invEntry.getAmount()){
+                        Log.d("log", "update entry: match");
+                        for (Entry shoppingEntry : shoppingList.Entries) {
+                            if (invEntry.getName().equals(shoppingEntry.getName())){
+//                                if(wantedEntry.getAmount() - invEntry.getAmount() > shoppingEntry.getAmount()) {
+                                    DataManager.getInstance().add(EntryList.SHOPPING_LIST,
+                                            wantedEntry.getName(),
+                                            (wantedEntry.getAmount() - invEntry.getAmount()) - shoppingEntry.getAmount(),
+                                            (wantedEntry.getBarcode().isEmpty()) ? invEntry.getBarcode() : wantedEntry.getBarcode(),
+                                            -1,
+                                            -1,
+                                            -1,
+                                            (wantedEntry.getType() == 0) ? invEntry.getType() : wantedEntry.getType()
+                                    );
+                                return 5;
+                            }
+                        }
+                        DataManager.getInstance().add(
+                                EntryList.SHOPPING_LIST,
+                                wantedEntry.getName(),
+                                wantedEntry.getAmount() - invEntry.getAmount(),
+                                (wantedEntry.getBarcode().isEmpty()) ? invEntry.getBarcode(): wantedEntry.getBarcode(),
+                                -1,
+                                -1,
+                                -1,
+                                (wantedEntry.getType() == 0) ? invEntry.getType() : wantedEntry.getType()
+                        );
+                        return 4;
+                    }
+                    return 3;
+                }
+            }
+            DataManager.getInstance().add(
+                    EntryList.SHOPPING_LIST,
+                    wantedEntry.getName(),
+                    wantedEntry.getAmount(),
+                    wantedEntry.getBarcode(),
+                    -1,
+                    -1,
+                    -1,
+                    wantedEntry.getType()
+            );
+        }
+        return 2;
     }
 
 }
